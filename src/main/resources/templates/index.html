@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<title>Spring Boot and Thymeleaf example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div>
+			<h3 class="text-center" style="margin-top: 20px; margin-bottom: 30px;">Bienvenue au centre sportif Gym Argenté</h3>
+			<div th:if="${redmessage ne null}">
+				 <p th:text="${redmessage}" class="alert alert-primary"></p>			 
+			</div>	
+			
+			<div id="carouselExampleIndicators" class="carousel slide">
+			  <ul class="carousel-indicators">
+			    <li class="item1 active"></li>
+			    <li class="item2"></li>
+			    <li class="item3"></li>
+			    <li class="item4"></li>
+			  </ul>
+			  <div class="carousel-inner">
+			    <div class="carousel-item  active text-center">
+			      <img src="../static/img/index1.png" th:src="@{img/index1.png}" width="1200px;" height="625px;" alt="First slide">
+			    </div>
+			    <div class="carousel-item text-center">
+			      <img src="../static/img/index2.png" th:src="@{img/index2.png}" width="1200px;" height="625px;" alt="Second slide" >			      
+			    </div>
+			    <div class="carousel-item text-center">
+			      <img src="../static/img/index3.png" th:src="@{img/index3.png}" width="1200px;" height="625px;" alt="Third slide">
+			    </div>
+			    <div class="carousel-item text-center">
+			      <img src="../static/img/index4.png" th:src="@{img/index4.png}" width="1200px;" height="625px;" alt="Fourth slide">
+			    </div>			    
+			  </div>
+			  <a class="carousel-control-prev" href="#carouselExampleIndicators" data-slide="prev">
+			    <span class="carousel-control-prev-icon" ></span>
+			    <span class="sr-only">Previous</span>
+			  </a>
+			  <a class="carousel-control-next" href="#carouselExampleIndicators" data-slide="next">
+			    <span class="carousel-control-next-icon" ></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+			</div>
+		</div>
+	</div>
+</body>
+</html> 

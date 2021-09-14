@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<title>Abonnement Gym Argenté</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div layout:fragment="pageContent">
+        <div>
+        	<h3 class="text-center">Abonnement et Tarifs Gym Argenté</h3>
+        </div>
+		<div class="card-columns" style="margin-top: 20px;">
+		  <div class="card bg-dark text-white">
+		    <!-- <img src="..." class="card-img-top" alt="..."> -->
+		    <div class="card-body">
+		      <h5 class="card-title">Conditionnement Mensuel</h5>
+		      <p class="card-text">Sans Option Cours de Groupe Mensuel Tarif: 80$/mois</p>
+		      <p class="card-text">Avec Option Cours de Groupe Mensuel Tarif: 80$/mois + 25$/mois</p>
+		      <p class="card-text">Accès aux appareils de conditionnement</p>
+		      <p class="card-text"><small class="text-muted">Dernièere mise à jour il y'a 3 minute</small></p>
+		    </div>
+		  </div>
+		  <div class="card bg-dark text-white">
+		    <!-- <img src="..." class="card-img-top" alt="..."> -->
+		    <div class="card-body">
+		      <h5 class="card-title">Conditionnement Trimestriel</h5>
+		      <p class="card-text">Sans Option Cours de Groupe Trimestriel Tarif: 220$/mois</p>
+		      <p class="card-text">Avec Option Cours de Groupe Trimestriel Tarif: 220$/Trimestre + 60$/Trimestre</p>
+		      <p class="card-text">Accès aux appareils de conditionnement</p>
+		      <p class="card-text"><small class="text-muted">Dernière mise à jour li y'a 3 minute</small></p>
+		    </div>
+		  </div>
+		  <div class="card bg-dark text-white">
+		    <!-- <img src="..." class="card-img-top" alt="..."> -->
+		    <div class="card-body">
+		      <h5 class="card-title">Conditionnement Annuel</h5>
+		      <p class="card-text">Sans Option Cours de Groupe Annuel Tarif: 800$/mois</p>
+		      <p class="card-text">Avec Option Cours de Groupe Annuel Tarif: 800$/mois + 200$/mois</p>
+		      <p class="card-text">Accès aux appareils de conditionnement</p>
+		      <p class="card-text"><small class="text-muted">Dernière mise à jour li y'a 3 minute</small></p>
+		    </div>
+		  </div>
+		</div>	
+		<div class="card-columns" style="margin-top: 20px;">
+		  <div class="card bg-dark text-white">
+		    <!-- <img src="..." class="card-img-top" alt="..."> -->
+		    <div class="card-body">
+		      <h5 class="card-title">Cours de Groupe Mensuel: 50$/mois</h5>
+		      <p class="card-text">Accès à 1 cours de groupe par semaine</p>
+		      <p class="card-text">les clients inscrits uniquement dans les cours de groupes n’ont pas accès aux appareils de conditionnement</p>
+		      <p class="card-text"><small class="text-muted">Dernièere mise à jour il y'a 3 minute</small></p>
+		    </div>
+		  </div>
+		  <div class="card bg-dark text-white">
+		    <!-- <img src="..." class="card-img-top" alt="..."> -->
+		    <div class="card-body">
+		      <h5 class="card-title">Cours de Groupe Trimestriel: 135$/mois</h5>
+		      <p class="card-text">Accès à 1 cours de groupe par semaine</p>
+		      <p class="card-text">les clients inscrits uniquement dans les cours de groupes n’ont pas  accès aux appareils de conditionnement</p>
+		      <p class="card-text"><small class="text-muted">Dernière mise à jour li y'a 3 minute</small></p>
+		    </div>
+		  </div>
+		  <div class="card bg-dark text-white">
+		    <!-- <img src="..." class="card-img-top" alt="..."> -->
+		    <div class="card-body">
+		      <h5 class="card-title">Cours de Groupe Annuel: 500$/mois</h5>
+		      <p class="card-text">Accès à 1 cours de groupe par semaine</p>
+		      <p class="card-text">les clients inscrits uniquement dans les cours de groupes n’ont pas  accès aux appareils de conditionnement</p>		      
+		      <p class="card-text"><small class="text-muted">Dernièere mise à jour il y'a 3 minute</small></p>
+		    </div>
+		  </div>
+		</div>	
+		<div>
+		  	<p class="text-info">
+		  		Accès aux services, d'un entrainneur privé, consultation en nutrition, physiothérapie, aux taux horaire de 75 $/h ou  tarif de 65 $/h pour un bloc de 10 heures.
+		  	</p>
+		</div>
+	</div>
+</body>
+</html> 

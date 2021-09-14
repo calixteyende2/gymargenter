@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd">
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<div th:object="${role}" th:fragment="rolesList">
+		<label for="role">Rôle</label>
+		<select  id="role" th:name="role" class="form-control" >
+		    <option th:each="role : ${roles}" 
+				    th:value="${role.id}" 
+				    th:text="${role.roleName}">
+		    </option>
+		</select>	
+	</div>
+</body>
+</html>
+

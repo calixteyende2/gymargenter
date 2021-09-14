@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+		crossorigin="anonymous">
+	<title>loginForm</title>
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+	<div class="container">
+		<div class="col-md-8 offset-md-2 mt-5">
+		<div class="card" >
+			<div class="card-header text-center">Authentication</div>	
+			<div class="text-danger m-1 text-center" th:if="${param.error}">username or password invalid</div>
+			<div class="card-body">
+				<form th:action="@{/login}" method="post">
+					<div class="form-group">
+						<label for="username">Email</label>
+						<input class="form-control" type="text" id="username" name="username">
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input class="form-control" type="password" id="password" name="password">
+					</div>
+					<div class="container text-center mt-1">
+						<button type="submit" class="btn btn-primary" >Se connecté</button>
+						<button type="reset" class="btn btn-secondary" >Éffacer</button>
+					</div>
+				</form>
+			  </div>		
+			</div>
+		 </div>
+		</div>
+	</div>
+</body>
+</html>

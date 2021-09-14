@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<h1>Welcome to this success page</h1>
+	<h1 th:text="${loginData.firstname}"></h1>
+	<h2 th:text="${loginData.email}"></h2>
+</body>
+</html>

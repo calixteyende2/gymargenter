@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container mt-0">
+		<div class="card">
+			<div class="card-header">Liste des rendez-vous</div>
+			<div class="card-body">
+			<div class="ml-1">
+				<div style="display: inline-block;">   
+					<form th:action="@{/calandriers}" method="get">
+						<div>
+							<label for="keyword">Name</label>
+							<input id="keyword" type="text" name="keyword" th:value="${keyword}"/>
+							<button class="btn btn-success">Chercher</button>							
+						</div>				
+					</form>
+				</div>
+				<div style="display: inline-block;">
+					<a th:href="@{/calandrierForm(email=${#authentication.getPrincipal().getUsername()})}" class="btn btn-primary ml-2">Ajouter un rendez-vous</a>
+				</div>	
+			</div>
+			<div style="overflow-x:auto;">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Spécialiste</th>
+						<th>Spécialité</th>
+						<th>Client</th>
+						<th>Date et heure</th>	
+						<th>Nombre d'heure</th>	
+						<th>Service prévu</th>					
+						<th sec:authorize="hasRole('ROLE_USER')"  colspan="2" style="text-align: center;"> 
+							Action
+					   </th>								
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${calandriers.empty}">
+            			<td colspan="9"> Pas de rendez-vous disponibles </td>
+        			</tr> 				
+					<tr th:each="calandrier:${calandriers}" class="bg-light hover-zoom">
+						<th th:text="${calandrier.id}"></th>
+						<th th:text="${calandrier.responsable}"></th>
+						<th th:text="${calandrier.domaine}"></th>
+						<th th:text="${calandrier.participant}"></th>
+						<th th:text="${#temporals.format(calandrier.dateDebut, 'yyyy/MM/dd HH:mm')}"></th>						
+						<th th:text="${calandrier.quantite}"></th>
+						<th th:text="${calandrier.description}"></th>
+						<th  sec:authorize="hasRole('ROLE_USER')" > 
+							<a onclick="return confirm('Etes vous sure de vouloir supprimer ?')" class="btn btn-danger" 
+							  th:href="@{/userDeleteCalandrier(email=${#authentication.getPrincipal().getUsername()}, id=${calandrier.id}, keyword=${keyword}, page=${currentPage}, size=${'5'})}">
+							  Delete
+							</a>
+					   </th>
+						<th sec:authorize="hasRole('ROLE_USER')" > 
+							<a class="btn btn-success" 
+							  th:href="@{/userLireCalandrier(id=${calandrier.id})}">
+							  Lire
+							</a>
+					   </th>					   					   
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<ul class="nav nav-pills">
+     <!-- 			
+ 			    <li th:each="page, status:${pages}">
+					<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+					   th:href="@{cycles(page=${status.index})}" th:text="${status.index}"></a>
+				</li> 
+	-->
+				
+				<li th:each="page, status:${pages}">
+					<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+					   th:href="@{calandriers(page=${status.index}, keyword=${keyword}, size=${size})}" th:text="${status.index}"></a>
+				</li>
+			</ul>
+			</div>
+		</div>
+	 </div>	
+	</div>
+</body>
+</html>

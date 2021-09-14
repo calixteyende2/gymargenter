@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<meta charset="utf-8">
+<title>Gestion des plans</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-0">
+		<div class="card">
+			<div class="card-header">Liste des plans</div>
+			<div class="card-body">
+			<div class="ml-1">
+				<div style="display: inline-block;">   
+					<form th:action="@{/plans}" method="get">
+						<div>
+							<label for="keyword">Name</label>
+							<input id="keyword" type="text" name="keyword" th:value="${keyword}"/>
+							<button class="btn btn-success">Chercher</button>							
+						</div>				
+					</form>
+				</div>
+				<div style="display: inline-block;">
+					<a th:href="@{/planForm}" class="btn btn-primary ml-2">Ajouter un Plan</a>
+				</div>	
+			</div>
+			<div style="overflow-x:auto;">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom Du Plan</th>
+						<th>Code</th>
+						<th>Tarif</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')" colspan="2" style="text-align: center;">  
+							Action
+					   </th>									
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${plans.empty}">
+            			<td colspan="6"> Pas de plan disponible </td>
+        			</tr>				
+					<tr th:each="plan : ${plans}" class="bg-light hover-zoom">
+						<th th:text="${plan.id}"></th>
+						<th th:text="${plan.name}"></th>
+						<th th:text="${plan.code}"></th>
+						<th th:text="${plan.prix +'$'}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">     
+							<a onclick="return confirm('Etes vous sure de vouloir supprimer ?')" class="btn btn-danger" 
+							  th:href="@{/deletePlan(id=${plan.id}, keyword=${keyword}, page=${currentPage}, size=${'5'})}">
+							  Supprimer
+							</a>
+					    </th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">		
+							<a onclick="return confirm('Etes vous sure de vouloir mettre à jour ?')" class="btn btn-success" 
+							  th:href="@{/editPlan(id=${plan.id})}">
+							  Editer
+							</a>
+					   </th>					   
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<ul class="nav nav-pills">
+	<!-- 			
+ 				<li th:each="page, status : ${pages}">
+					<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+					   th:href="@{plans(page=${status.index})}" th:text="${status.index}"></a>
+				</li>
+	 -->
+				<li th:each="page, status : ${pages}">
+					<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+					   th:href="@{plans(page=${status.index}, keyword=${keyword}, size=${size})}" th:text="${status.index}"></a>
+				</li>	
+			</ul>
+			</div>
+		</div>
+	 </div>	
+	</div>
+</body>
+</html> 

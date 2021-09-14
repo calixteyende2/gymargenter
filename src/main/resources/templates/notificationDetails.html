@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<title>Notification details</title>
+
+
+
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container">
+			<div class="row mt-0">
+				<div class="col-md-8 offset-md-2">  
+					<form  method="post"
+						   enctype="multipart/form-data" class="bg-white p-4">
+						<h5 class="text-center p-3"
+							style="background: #e2e2e2;  min-height: 60px; border-radius: 5px;">
+							Détails de la notification
+						</h5>
+						
+						<div th:object="${notification}">	
+ 						
+						<div class="form-group form-inline  mt-5">
+							<label class="control-label border-0" for="gestionnaire">Gestionnaire: </label> 
+							<label class="control-label border-0 bg-white" style="margin-left: 14px;" readonly="readonly" id="gestionnaire" th:text="${notification.emailGestionnaire}"></label>					
+						</div>
+						<div class="form-group form-inline  mt-5">
+							<label class="control-label border-0" for="responsable">Client: </label> 
+							<label  class="control-label border-0 bg-white" style="margin-left: 62px;" readonly="readonly" id="client" th:text="${notification.emailClient}"></label>					
+						</div>						
+						<div class="form-group form-inline">
+							<label class="control-label border-0" for="message">Notification:</label>
+							<label class="control-label border-0 bg-white" style="margin-left: 20px;" readonly="readonly"  th:text="${notification.message}"></label>						
+						</div>
+						<div class="form-group form-inline">
+							<label class="control-label border-0" for="dateFin">Date de fin:</label>
+							<label class="control-label border-0 bg-white" readonly="readonly" style="margin-left: 24px;"  th:text="${#temporals.format(notification.dateFin, 'yyyy/MM/dd HH:mm')}"></label>						
+						</div>
+	                    <div class="form-group">
+	    					<span>
+								<a class="btn btn-primary btn-block mt-3" th:href="@{/notifications}">Fermer</a>
+							</span>                  
+	                    </div>	                    								
+					</div>				
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html> 

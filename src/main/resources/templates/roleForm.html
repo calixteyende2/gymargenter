@@ -1,0 +1,59 @@
+ <!doctype html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<title>Rôle RegisterForm</title>
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-8 offset-md-2">
+					<form th:action="@{/saveRole}" method="post"
+						class="bg-white p-4">
+						<h3 class="text-center"
+							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" th:if="${role.id==null}">Enregistrement D'Un <br>
+																											Nouveau Rôle</h3>
+							<h3 class="text-center"
+							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" th:if="${role.id!=null}">Modifification Des <br>
+																											Données Du Rôle</h3>
+						<div th:object="${role}">																					
+							<div class="form-group">
+								<label class="control-label" for="id">ID</label> 
+								<label class="control-label" for="id" th:text="${role.id}"></label>
+								<input type="hidden" name="id" class="form-control"
+									th:value="${role.id}" id="id" aria-describedby="idHelp">
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="roleName">Nom du Rôle </label> 
+								<input	type="text" name="roleName" class="form-control"
+									th:value="${role.roleName}" required
+									th:classappend="${#fields.hasErrors('roleName')?'is-invalid':''}"
+									id="roleName" aria-describedby="roleNameHelp">
+	
+								<div th:each="e:${#fields.errors('roleName')}" th:text="${e}"
+									class="invalid-feedback">
+								</div>
+							</div>
+						</div>
+						<div class="container text-center">
+							<button type="submit" class="btn btn-primary">Soumettre</button>
+							<button type="reset" class="btn btn-secondary">Éffacer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html> 

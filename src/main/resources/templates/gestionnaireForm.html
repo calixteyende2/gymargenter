@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+	
+	<style type="text/css">
+	
+	.checkbox, .radio, .label{
+	cursor: pointer;
+	}
+		
+	</style>
+
+
+<title>Register User here</title>
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container mt-0 mb-5">
+			<div class="row">
+				<div class="col-md offset-md-0">
+					<form th:action="@{/saveGestionnaire}"  
+						  method="post"
+						  th:object="${adresseGestionnaire}"
+						  enctype="multipart/form-data"
+						  class="bg-white p-4">
+						<h3 class="text-center p-3"
+							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" 
+							th:if="${adresseGestionnaire.gestionnaire.id==null}">Ajouter Gestionnaire</h3>
+						<h3 class="text-center p-3"
+							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" 
+							th:if="${adresseGestionnaire.gestionnaire.id!=null}">Modifier Gestionnaire</h3>
+						
+						<div th:if="${message ne null}" style="text-align: center;">
+							<span class="text-danger" th:text="${message}"></span>
+						</div>
+															
+						<div >					
+							<div class="form-group">
+								<label class="control-label" for="id">ID</label> 
+								<label class="control-label" for="id" th:text="${adresseGestionnaire.gestionnaire.id}"></label>
+								<input type="hidden" name="adresseGestionnaire.gestionnaire.id" class="form-control"
+									   th:value="${adresseGestionnaire.gestionnaire.id}" id="id" aria-describedby="idHelp">									
+							</div>												
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="firstname">Prénom</label> 
+									<input	type="text" name="gestionnaire.firstname" class="form-control"	required
+											th:value="${adresseGestionnaire.gestionnaire.firstname}" 
+											th:classappend="${#fields.hasErrors('gestionnaire.firstname')?'is-invalid':''}"
+											id="firstname" aria-describedby="firstnameHelp">		
+									<div th:each="e:${#fields.errors('gestionnaire.firstname')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>	
+								<div class="form-group col-md-6">
+									<label class="control-label" for="lastname">Nom</label>
+									 <input	type="text" name="gestionnaire.lastname" class="form-control" required
+											th:value="${adresseGestionnaire.gestionnaire.lastname}"	
+											th:classappend="${#fields.hasErrors('gestionnaire.lastname')?'is-invalid':''}"
+											id="lastname" aria-describedby="lastnameHelp">		
+									<div th:each="e:${#fields.errors('gestionnaire.lastname')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>														
+							</div>	
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="email">Email</label> 
+									<input	type="email" name="gestionnaire.email" class="form-control"  required
+											th:value="${adresseGestionnaire.gestionnaire.email}"
+											th:classappend="${#fields.hasErrors('gestionnaire.email')?'is-invalid':''}"
+											id="email" aria-describedby="emailHelp">		
+									<div th:each="e:${#fields.errors('gestionnaire.email')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="phone">Téléphone</label> 
+									<input  type="tel" name="gestionnaire.phone" class="form-control" required
+											th:value="${adresseGestionnaire.gestionnaire.phone}"
+											th:classappend="${#fields.hasErrors('gestionnaire.phone')?'is-invalid':''}"
+											id="phone" aria-describedby="phonelHelp">		
+									<div th:each="e:${#fields.errors('gestionnaire.phone')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>							
+							</div>							
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="datenaissance">Date de naissance</label>
+									 <input type="date" name="gestionnaire.datenaissance" class="form-control" required
+											th:value="${adresseGestionnaire.gestionnaire.datenaissance}"
+											th:classappend="${#fields.hasErrors('gestionnaire.datenaissance')?'is-invalid':''}"
+											id="datenaissance" aria-describedby="datenaissanceHelp">		
+									<div th:each="e:${#fields.errors('gestionnaire.datenaissance')}"
+										 th:text="${e}" class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="password">Mot de passe</label> 
+									<input	type="password" name="gestionnaire.password" class="form-control" required
+											th:value="${adresseGestionnaire.gestionnaire.password}"
+											th:classappend="${#fields.hasErrors('gestionnaire.password')?'is-invalid':''}"
+											id="password" aria-describedby="passwordHelp">		
+									<div th:each="e:${#fields.errors('gestionnaire.password')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>							
+							</div>
+						</div>
+						<div >  <!-- th:object="${adresse}" -->
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="numeroRue">Numéro rue</label>
+									 <input	type="number" name="adresse.numeroRue" class="form-control" required
+											th:value="${adresseGestionnaire.adresse.numeroRue}"
+											th:classappend="${#fields.hasErrors('adresse.numeroRue')?'is-invalid':''}"
+											id="numeroRue" aria-describedby="numeroRueHelp">		
+									<div th:each="e:${#fields.errors('adresse.numeroRue')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="numeroApp">Numéro Appartement</label>
+									 <input	type="number" name="adresse.numeroApp" class="form-control" required
+											th:value="${adresseGestionnaire.adresse.numeroApp}"
+											th:classappend="${#fields.hasErrors('adresse.numeroApp')?'is-invalid':''}"
+											id="numeroApp" aria-describedby="numeroAppHelp">		
+									<div th:each="e:${#fields.errors('adresse.numeroApp')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>							
+							</div>
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="nomRue">Nom rue</label>
+									 <input	type="text" name="adresse.nomRue" class="form-control" required
+											th:value="${adresseGestionnaire.adresse.nomRue}"
+											th:classappend="${#fields.hasErrors('adresse.nomRue')?'is-invalid':''}"
+											id="nomRue" aria-describedby="nomRueHelp">
+		
+									<div th:each="e:${#fields.errors('adresse.nomRue')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="ville">Ville</label>
+									 <input	type="text" name="adresse.ville" class="form-control" required
+											th:value="${adresseGestionnaire.adresse.ville}"
+											th:classappend="${#fields.hasErrors('adresse.ville')?'is-invalid':''}"
+											id="ville" aria-describedby="villeHelp">
+									<div th:each="e:${#fields.errors('adresse.ville')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>							
+							</div>
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="provinceRegion">Province/Region/État</label>
+									 <input	type="text" name="adresse.provinceRegion" class="form-control" required
+											th:value="${adresseGestionnaire.adresse.provinceRegion}"
+											th:classappend="${#fields.hasErrors('adresse.provinceRegion')?'is-invalid':''}"
+											id="provinceRegion" aria-describedby="provinceRegionHelp">		
+									<div th:each="e:${#fields.errors('adresse.provinceRegion')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="pays">Pays</label>
+									 <input	type="text" name="adresse.pays" class="form-control" required
+											th:value="${adresseGestionnaire.adresse.pays}"
+											th:classappend="${#fields.hasErrors('adresse.pays')?'is-invalid':''}"
+											id="pays" aria-describedby="paysHelp">		
+									<div th:each="e:${#fields.errors('adresse.pays')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+							    </div>							
+							  </div>
+							</div>																					
+							<div class="container text-center mt-5">
+								<button type="submit" class="btn btn-primary" >Soumettre</button>
+								<button type="reset" class="btn btn-secondary" >Éffacer</button>
+							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

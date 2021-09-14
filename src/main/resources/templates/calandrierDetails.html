@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<title>Register here</title>
+
+
+
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container">
+			<div class="row mt-0">
+				<div class="col-md-8 offset-md-2">  
+					<form  method="post"
+						   enctype="multipart/form-data" class="bg-white p-4">
+						<h5 class="text-center p-3"
+							style="background: #e2e2e2;  min-height: 60px; border-radius: 5px;">
+							Détails de la rencontre
+						</h5>
+						
+						<div th:object="${calandrier}">	
+ 						
+						<div class="form-group form-inline  mt-5">
+							<label class="control-label border-0" for="responsable">Spécialiste: </label> 
+							<input  class="form-control border-0 bg-white" style="margin-left: 20px;" readonly="readonly" id="responsable" th:value="${calandrier.responsable}">						
+						</div>
+						<div class="form-group form-inline">
+							<label class="control-label border-0" for="domaine">Spécialité:</label>
+							<input class="form-control border-0 bg-white" style="margin-left: 30px;" readonly="readonly" id="domaine" th:value="${calandrier.domaine}">						
+						</div>						
+						<div class="form-group form-inline">
+							<label class="control-label border-0" for="client">Client:</label>
+							<input class="form-control border-0 bg-white" style="margin-left: 50px;" readonly="readonly" id="participant"  th:value="${calandrier.participant}">						
+						</div>
+						<div class="form-group form-inline">
+							<label class="control-label border-0" for="dateDebut">Date:</label>
+							<input class="form-control border-0 bg-white" readonly="readonly" id="dateDebut" style="margin-left: 56px;"  th:value="${calandrier.dateDebut}">						
+						</div>	
+						<div class="form-group form-inline">
+							<label class="control-label border-0" for="description">Description:</label>
+							<input class="form-control border-0 bg-white" style="margin-left: 10px;" readonly="readonly" id="description" th:value="${calandrier.description}">						
+						</div>	
+						<div class="form-group form-inline">
+							<label class="control-label border-0" for="quantite">Durée:</label>
+							<input class="form-control border-0 bg-white" style="margin-left: 48px;" readonly="readonly" id="quantite" th:value="${calandrier.quantite}">						
+						</div>								
+	                    <div class="form-group">
+	    					<span>
+								<a class="btn btn-primary btn-block mt-3" th:href="@{/calandriers}">Fermer</a>
+							</span>                  
+	                    </div>	                    								
+					</div>				
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html> 

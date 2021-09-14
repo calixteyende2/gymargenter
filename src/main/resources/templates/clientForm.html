@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+	
+	<style type="text/css">
+	
+	.checkbox, .radio, .label{
+	cursor: pointer;
+	}
+		
+	</style>
+
+	<title>Client register form</title>
+
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container mt-0 mb-5">
+			<div class="row">
+				<div class="col-md offset-md-0">
+					<form th:action="@{/saveClient}"  
+						  method="post"
+						  th:object="${client}"
+						  enctype="multipart/form-data"
+						  class="bg-white p-4">
+						<h3 class="text-center p-3"
+							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" th:if="${client.id==null}">Ajouter Client</h3>
+							<h3 class="text-center p-3"
+							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" th:if="${client.id!=null}">Modifier Client</h3>
+						<div th:if="${message ne null}" style="text-align: center;">
+							<span class="text-danger" th:text="${message}"></span>
+						</div>
+									
+						<div >					
+							<div class="form-group">
+								<label class="control-label" for="id">ID</label> 
+								<label class="control-label" for="id" th:text="${client.id}"></label>
+								<input type="hidden" name="id" class="form-control"
+									   th:value="${client.id}" id="id" aria-describedby="idHelp">									
+							</div>												
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="firstname">Prénom</label> 
+									<input	type="text" name="firstname" class="form-control"	required
+										    th:value="${client.firstname}" 
+										    th:classappend="${#fields.hasErrors('firstname')?'is-invalid':''}"
+										    id="firstname" aria-describedby="firstnameHelp">		
+									<div th:each="e:${#fields.errors('firstname')}" th:text="${e}"
+										class="invalid-feedback">
+									</div>
+								</div>	
+								<div class="form-group col-md-6">
+									<label class="control-label" for="lastname">Nom</label>
+									 <input	type="text" name="lastname" class="form-control" required
+											th:value="${client.lastname}"	
+											th:classappend="${#fields.hasErrors('lastname')?'is-invalid':''}"
+											id="lastname" aria-describedby="lastnameHelp">		
+									<div th:each="e:${#fields.errors('lastname')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>														
+							</div>	
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="email">Email</label> 
+									<input	type="email" name="email" th:value="${client.email}" required
+											th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+											class="form-control" id="email">		
+									<div th:each="e:${#fields.errors('email')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="phone">Téléphone</label> 
+									<input  type="tel" name="phone" th:value="${client.phone}" required
+											th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}"
+											class="form-control" id="phone">		
+									<div th:each="e:${#fields.errors('phone')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>							
+							</div>							
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="datenaissance">Date de naissance</label>
+									 <input type="date" name="datenaissance" 					required
+											class="form-control" th:value="${client.datenaissance}"
+											th:classappend="${#fields.hasErrors('datenaissance')?'is-invalid':''}"
+											id="datenaissance" aria-describedby="datenaissanceHelp">		
+									<div th:each="e:${#fields.errors('datenaissance')}"
+										 th:text="${e}" class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="password">Mot de passe</label> 
+									<input	type="password" name="password" th:value="${client.password}"
+											th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
+											class="form-control" id="password" 					required
+											aria-describedby="passwordHelp">		
+									<div th:each="e:${#fields.errors('password')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>							
+							</div>
+						</div>
+						
+						<div th:object="${adresse}">
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="numeroRue">Numéro rue</label>
+									 <input	type="number" name="numeroRue" class="form-control" required
+											th:value="${adresse.numeroRue}"
+											th:classappend="${#fields.hasErrors('numeroRue')?'is-invalid':''}"
+											id="numeroRue" aria-describedby="numeroRueHelp">		
+									<div th:each="e:${#fields.errors('numeroRue')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="numeroApp">Numéro Appartement</label>
+									 <input	type="number" name="numeroApp" class="form-control" required
+											th:value="${adresse.numeroApp}"
+											th:classappend="${#fields.hasErrors('numeroApp')?'is-invalid':''}"
+											id="numeroApp" aria-describedby="numeroAppHelp">		
+									<div th:each="e:${#fields.errors('numeroApp')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>							
+							</div>
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="nomRue">Nom rue</label>
+									 <input	type="text" name="nomRue" class="form-control" required
+											th:value="${adresse.nomRue}"
+											th:classappend="${#fields.hasErrors('nomRue')?'is-invalid':''}"
+											id="nomRue" aria-describedby="nomRueHelp">
+		
+									<div th:each="e:${#fields.errors('nomRue')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="ville">Ville</label>
+									 <input	type="text" name="ville" class="form-control" required
+											th:value="${adresse.ville}"
+											th:classappend="${#fields.hasErrors('ville')?'is-invalid':''}"
+											id="ville" aria-describedby="villeHelp">
+		
+									<div th:each="e:${#fields.errors('ville')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>							
+							</div>
+							
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label class="control-label" for="provinceRegion">Province/Region/État</label>
+									 <input	type="text" name="provinceRegion" class="form-control" required
+											th:value="${adresse.provinceRegion}"
+											th:classappend="${#fields.hasErrors('provinceRegion')?'is-invalid':''}"
+											id="provinceRegion" aria-describedby="provinceRegionHelp">		
+									<div th:each="e:${#fields.errors('provinceRegion')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="pays">Pays</label>
+									 <input	type="text" name="pays" class="form-control" required
+											th:value="${adresse.pays}"
+											th:classappend="${#fields.hasErrors('pays')?'is-invalid':''}"
+											id="pays" aria-describedby="paysHelp">		
+									<div th:each="e:${#fields.errors('pays')}" th:text="${e}"
+										 class="invalid-feedback">
+									</div>
+							    </div>							
+							  </div>
+							</div>	
+							<div class="row">
+								<div class="form-group col-md-6">	
+									<div id="dateDebutDiv">					
+										<div class="form-group blu-margin" >
+											<label class="form-label" for="dateDebut">Date Adhésion</label>
+											<input class="form-control" id="dateDebut" type="datetime-local" 
+												   th:name="dateDebut" th:value="${client.dateDebut}">
+										</div>
+									</div>
+								</div>	
+								<div class="form-group col-md-6">								
+									<div id="dateFin">					
+										<div class="form-group blu-margin" >
+											<label class="form-label" for="dateFin">Date Fin Adhésion</label>
+											<input class="form-control" id="dateFin" type="datetime-local" 
+												   th:name="dateFin" th:value="${client.dateFin}">	
+										</div>
+								  </div>								   	 
+							  </div>
+						   </div>									
+																															    							
+								<div >
+									<h3 style="color: green;"> Choisir son plan d'abonnement</h3>
+								</div>
+								  <div class="actions">
+								  	<div>
+									    <input class="radio" type="radio" name="serviceChoice" id="radio1" onchange="gymArgenteChoice(0)">
+									    <label class="label" for="radio1">Condionnement mensuel avec appareils</label>
+								    </div>
+								    
+								    <div>
+									    <input class="radio" type="radio" name="serviceChoice" id="radio2" onchange="gymArgenteChoice(1)">
+									    <label class="label" for="radio2">Conditionnemnt trimestriel avec appareil</label>
+								    </div>
+								    <div>
+									    <input class="radio" type="radio" name="serviceChoice" id="radio3" onchange="gymArgenteChoice(2)">
+									    <label class="label" for="radio3">Conditionnement annuel avec appareils</label>
+								    </div>
+								    <div>
+									    <input class="radio" type="radio" name="serviceChoice" id="radio4" onchange="gymArgenteChoice(3)">
+									    <label class="label" for="radio4">Cours de groupe mensuel sans accès aux appareils de conditionnemt</label>
+								    </div>
+								    <div>
+									    <input class="radio" type="radio" name="serviceChoice" id="radio5" onchange="gymArgenteChoice(4)">
+									    <label class="label" for="radio5">Cours de groupe trimestriel sans accès aux appareils de conditionnement</label>
+								    </div>
+								    <div>
+									    <input class="radio" type="radio" name="serviceChoice" id="radio6" onchange="gymArgenteChoice(5)">
+									    <label class="label" for="radio6">Cours de groupe annuel sans accès aux appareils de conditionnement</label>
+								    </div>
+								    <div>
+									    <input class="radio" type="radio" name="serviceChoice" id="radio7" onchange="gymArgenteChoice(6)">
+									    <label class="label" for="radio7">Services spécialisés uniquement</label>
+								    </div>								    
+								  </div>
+								  <div class="items">
+								  	<div class="d-flex">
+									  	<div class="d-inline-block col-md-6">
+									    <input disabled class="checkbox" type="checkbox" id="CM" th:each="service, index: ${services}" th:if="${service.getCode()=='CM'}" th:value="${service.name}" name="CM">
+									    <label class="label" for="CM">Conditionnement Mensuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CM'}" th:text="${service.prix}"> </span>$</label>	<br>							    
+									    <input disabled  class="checkbox" type="checkbox" id="CT" th:each="service, index: ${services}" th:if="${service.getCode()=='CT'}" th:value="${service.name}" name="CT">
+									    <label class="label" for="CT">Conditionnement Trimestriel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CT'}" th:text="${service.prix}"> </span>$</label><br>								    
+									    <input disabled  class="checkbox" type="checkbox" id="CA" th:each="service, index: ${services}" th:if="${service.getCode()=='CA'}" th:value="${service.name}" name="CA">
+									    <label class="label" for="CA">Conditionnement Annuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CA'}" th:text="${service.prix}"> </span>$</label>
+									   	</div>
+									   	<div class="d-inline-block col-md-6">						    								    
+									    <input disabled  class="checkbox" type="checkbox" id="OPTCGM" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGM'}" th:value="${service.name}" name="OPTCGM">
+									    <label class="label" for="OPTCGM">Option Cours de Groupe Mensuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGM'}" th:text="${service.prix}"> </span>$</label><br>
+									    <input disabled  class="checkbox" type="checkbox" id="OPTCGT" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGT'}" th:value="${service.name}" name="OPTCGT">
+									    <label class="label" for="OPTCGT">Option Cours de GroupeTrimestriel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGT'}" th:text="${service.prix}"> </span>$</label><br>
+									    <input disabled  class="checkbox" type="checkbox" id="OPTCGA" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGA'}" th:value="${service.name}" name="OPTCGA">
+									    <label class="label" for="OPTCGA">Option Cours de Groupe Annuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGA'}" th:text="${service.prix}"> </span>$</label>
+									  </div>
+								  </div>
+								  	
+								  	<div class="d-flex">
+									  	<div class="d-inline-block col-md-6">
+										    <input disabled class="checkbox" type="checkbox" id="CGM" th:each="service, index: ${services}" th:if="${service.getCode()=='CGM'}" th:value="${service.name}" name="CGM">
+										    <label class="label" for="CGM">Cours de Groupe Mensuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CGM'}" th:text="${service.prix}"> </span>$</label><br>
+										    
+										    <input disabled class="checkbox" type="checkbox" id="CGT" th:each="service, index: ${services}" th:if="${service.getCode()=='CGT'}" th:value="${service.name}" name="CGT">
+										    <label class="label" for="CGT">Cours de Groupe Trimestriel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CGT'}" th:text="${service.prix}"> </span>$</label><br>
+											
+										    <input disabled class="checkbox" type="checkbox" id="CGA" th:each="service, index: ${services}" th:if="${service.getCode()=='CGA'}" th:value="${service.name}" name="CGA">
+										    <label class="label" for="CGA">Cours de Groupe Annuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CGA'}" th:text="${service.prix}"> </span>$</label><br>
+										</div>
+										<div class="d-inline-block col-md-6  mr-1">
+										    <label class="label" for="ENTP">Entraineur Privé: <span th:each="service, index: ${services}" th:if="${service.getCode()=='ENTP'}" th:text="${service.prix}"> </span>$/heure</label><span style="margin-left: 12px;">QTÉ</span> 
+										    <input style="width: 70px; height: 20px; margin-left: 8px;" placeholder="quantité" type="number" name="qENTP" th:value="${client.qENTP}"><br>  
+										    								    
+										   
+										    <label class="label" for="NUTRI">Nutritionniste: <span th:each="service, index: ${services}" th:if="${service.getCode()=='NUTRI'}" th:text="${service.prix}"> </span>$/heure</label> <span style="margin-left: 20px; padding-left: 2px;">QTÉ</span>
+										    <input style="width: 70px; height: 20px; margin-left: 10px;" placeholder="quantité" type="number" name="qNUTRI" th:value="${client.qNUTRI}"><br> 
+										
+										    
+										    <label class="label" for="PHYSIO">Physiothérapeute: <span th:each="service, index: ${services}" th:if="${service.getCode()=='PHYSIO'}" th:text="${service.prix}"> </span>$/heure</label><span style="margin-left: 4px;">QTÉ</span>
+										    <input style="width: 70px; height: 20px; margin-left: 6px;" placeholder="quantité" type="number" name="qPHYSIO" th:value="${client.qPHYSIO}"><br>       
+									 	</div>
+								 	  </div>
+								   </div>						
+																													
+							<div class="container text-center mt-5">
+								<button type="submit" class="btn btn-primary" >Soumettre</button>
+								<button type="reset" class="btn btn-secondary" >Éffacer</button>
+							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

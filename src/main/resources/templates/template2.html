@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="NavBar" />
+        <meta name="author" content="Calixte Yende" />
+        <title>SideBar Navigation</title>
+        <link rel="icon" type="image/x-icon" href="@{assets/favicon.ico}" />
+		<link rel="stylesheet" th:href="@{/css/template2.css}" />
+		<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+		crossorigin="anonymous">				
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">		
+    	<style>
+			ul.social-icons {
+			    display: block;
+			    margin: 0 auto;
+			    text-align: center;
+			}
+			
+			ul.social-icons li {
+			    display: inline-block;
+			    padding: 4px;
+			}
+    	</style>
+    </head>
+    <body style="background: #e2e2e2;">
+        <div class="d-flex" id="wrapper" style="height: 100%;">
+            <!-- Sidebar-->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="sidebar-heading border-bottom bg-light" style="height: 70px;">
+                	<h4 style="font-style: italic;">Gym Argenté</h4>
+                </div>
+                <div class="list-group list-group-flush" >
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Compte: 
+                  	    <span sec:authorize="isAuthenticated()">
+			       			<span sec:authentication="name"></span>
+				       	</span>
+				      	<span sec:authorize="!isAuthenticated()">
+				       		<span >Anonymous</span>
+				       	</span> 
+                    </a>
+                    <div > <!-- sec:authorize="!hasRole('ROLE_CLIENT')" -->
+				    <div class="list-group-item list-group-item-action list-group-item-light pl-0 pb-3" sec:authorize="isAuthenticated()"> 
+			          <ul class="list-group list-unstyled components" >
+		                <li class="active" >
+		                    <a  href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"><span style="height: 60px;" class="dropdown-toggle p-3">Gestionnaire</span></a>
+		                    <ul class="collapse list-unstyled " id="homeSubmenu"> <!-- style="max-height: 400px; overflow: auto" -->
+		                        <li sec:authorize="hasRole('ROLE_ADMIN')">  
+				                    <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/roles}">Gestion des rôles</a>
+				                    <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/plans}">Gestion des plans</a>
+				                    <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/notifications}">Gestion des notifications</a>
+				                    <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/clients}">Gestion des clients</a> 
+				                    <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/specialistes}">Gestion des spécialistes</a>  
+				                    <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/gestionnaires}">Gestion des gestionnaires</a> 
+		                        </li>
+		                    </ul>
+		                </li>
+				      </ul>	
+				    </div>
+				    <div class="list-group-item list-group-item-action list-group-item-light pl-0 pb-3" sec:authorize="isAuthenticated()">
+			          <ul class="list-group list-unstyled components">
+		                <li class="active">
+		                    <a  href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"><span style="height: 60px;" class="dropdown-toggle p-3">Spécialiste</span></a>
+		                    <ul class="collapse list-unstyled" id="pageSubmenu">
+		                        <li sec:authorize="hasRole('ROLE_USER')" >
+		                        	<span sec:authorize="hasRole('ROLE_USER')">
+				                    	<a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/calandrierForm(email=${#authentication.getPrincipal().getUsername()})}">Prendre Rendez-Vous</a> 
+				                    </span>
+				                    <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/calandriers}">Gestion des rendez-vous</a> 
+		                        </li>
+		                    </ul>
+		                </li>
+				      </ul>	
+				    </div>	
+				    </div>
+				    <div sec:authorize="hasRole('ROLE_CLIENT')">
+			          <ul class="list-group list-unstyled components">
+		                <li class="active">	
+		                	<a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/clientDetails(email=${#authentication.getPrincipal().getUsername()})}"> Details Abonnement</a> 	     	
+				   		</li>
+				   	  </ul>
+				    </div>
+                </div>
+            </div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper" style="max-width: 100%;">
+                <!-- Top navigation-->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="min-height: 70px; max-width: 100%;">
+                    <div class="container-fluid">
+                        <button class="btn btn-primary" id="sidebarToggle">Basculer</button>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        
+                        	<!--Left navigation--> 
+                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                                <li class="nav-item active"><a class="nav-link" th:href="@{/index}">Accueil</a></li>
+                                <li class="nav-item"><a class="nav-link" th:href="@{/abonnement}">Abonnements et tarifs</a></li> 
+                                <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact</a></li>                                                                            
+                            </ul>
+
+						    <!--Right navigation--> 
+						    <ul class="navbar-nav mr-auto ms-auto mt-2 mt-lg-0">       
+							    <li class="nav-item dropdown">
+							     <div>
+								      <a sec:authorize="!isAuthenticated()" class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	       									Connexion
+								      </a>							     
+								      <a sec:authorize="isAuthenticated()" class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	       									Déconnexion
+								      </a>
+								      <div class="dropdown-menu">
+								        <a sec:authorize="isAnonymous()" class="dropdown-item" th:href="@{login}">Login</a>
+								        <a sec:authorize="isAuthenticated()" class="dropdown-item" th:href="@{/logout}">Logout</a>
+								      </div>
+							     </div>
+							   </li>
+						    </ul>                            
+                            
+                        </div>
+                    </div>
+                </nav>
+                <!-- Page content-->
+                <div class="container-fluid">
+					<section layout:fragment="pageContent">
+					
+					
+					
+					</section>
+                </div>                
+            </div>
+        </div>
+        
+        <div style="height: 86px; margin-bottom: 0px;">
+        <!-- Site footer -->
+	    <footer class="site-footer">    
+	      <div class="container text-center">
+	        <div>
+	          <div >
+	            <p class="copyright-text text-center mt-2">Copyright &copy; 2021 All Rights Reserved by 
+	         		<a href="#">Calixte Yende</a>.
+	            </p>
+	          </div>	
+	          <div class="text-center" >
+	            <ul class="social-icons text-center">
+	              <li ><a class="facebook" href="https://facebook.com/" ><i class="fa fa-facebook"></i></a></li>
+	              <li ><a class="twitter"  href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+	              <li ><a class="dribbble" href="https://www.dribbble.com/"><i class="fa fa-dribbble"></i></a></li>
+	              <li ><a class="linkedin" href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>   
+	            </ul>
+	           </div>
+	          </div>
+	        </div>
+		   </footer> 
+		          
+        </div>
+         
+     </body>  
+    	<script th:src="@{/js/template2.js}" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>			 
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+				  
+<script th:inline="javascript">    
+
+//Checkboxes and radio button
+              
+function gymArgenteChoice(menuId) {
+  var menu = document.querySelectorAll('input[name="serviceChoice"]');
+  
+  var toppings = {
+  // 'Topping name': [is available on Option1, Option2, Option3, Option4, Option5, Option6]
+  	'CM':     [true, false, false, false, false, false, false, false],
+    'OPTCGM': [true, false, false, false, false, false, false, false],
+    'CT':     [false, true, false, false, false, false, false, false],
+    'OPTCGT': [false, true, false, false, false, false, false, false],
+    'CA':     [false, false, true, false, false, false, false, false],
+    'OPTCGA': [false, false, true, false, false, false, false, false],
+    'CGM':    [false, false, false, true, false, false, false, false],
+    'CGT':    [false, false, false, false, true, false, false, false],
+    'CGA':    [false, false, false, false, false, true, false, false],
+    'ENTP':   [true, true, true, true, true, true, true, true],
+    'NUTRI':  [true, true, true, true, true, true, true, true],
+    'PHYSIO': [true, true, true, true, true, true, true, true],
+
+  };
+  
+  for (const name of Object.keys(toppings)) {
+  	var chkbox = document.getElementById(name);
+  	if (toppings[name][menuId]) { // available topping on this menu
+      chkbox.disabled = false;
+    }else {
+    	 // disable if menu selected
+	      chkbox.disabled = menu[menuId].checked;
+	      if (menu[menuId].checked) {
+	      	chkbox.checked = false;
+	      }
+	    }  	
+	  }
+	}
+
+
+window.onload=function(){
+	  var radios=document.getElementsByName('serviceChoice');
+	  for(i=0;i<radios.length;i++)
+	    radios[i].onclick=checkFire;
+	};
+
+	function checkFire(e)
+	{
+	  var fires=document.getElementById('CM');
+	  var evt=e||window.event;
+	  var target=evt.target||evt.srcElement;
+	  if(target.checked && target.id==='radio1')
+	    fires.disabled=false;
+	  else 
+	  {
+	    fires.checked=false;
+	    fires.disabled=true;
+	  }
+	}
+////////////////////////////////////////////////////////////////
+//Carousel images
+$(document).ready(function(){
+  // Activate Carousel
+  $("#carouselExampleIndicators").carousel();
+  // Enable Carousel Indicators
+  $(".item1").click(function(){
+    $("#carouselExampleIndicators").carousel(0);
+  });
+  $(".item2").click(function(){
+    $("#carouselExampleIndicators").carousel(1);
+  });
+  $(".item3").click(function(){
+    $("#carouselExampleIndicators").carousel(2);
+  });
+  $(".item4").click(function(){
+	$("#carouselExampleIndicators").carousel(3);
+  });  
+  // Enable Carousel Controls
+  $(".carousel-control-prev").click(function(){
+    $("#carouselExampleIndicators").carousel("prev");
+  });
+  $(".carousel-control-next").click(function(){
+    $("#carouselExampleIndicators").carousel("next");
+  });
+});
+
+</script>
+</html>

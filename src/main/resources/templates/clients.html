@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<meta charset="utf-8">
+<title>Gestion des clients</title>
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container mt-1">
+		<div class="card">
+			<div class="card-header">Liste des clients</div>
+			<div class="card-body">
+			<div class="ml-1">
+				<div style="display: inline-block;">   
+					<form th:action="@{/clients}" method="get">
+						<div>
+							<label for="keyword">Name</label>
+							<input id="keyword" type="text" name="keyword" th:value="${keyword}"/>
+							<button class="btn btn-success">Chercher</button>							
+						</div>				
+					</form>
+				</div>
+				<div style="display: inline-block;" sec:authorize="hasRole('ROLE_ADMIN')">
+					<a th:href="@{/clientForm}" class="btn btn-primary ml-2">Ajouter un client</a>
+				</div>	
+			</div>
+			
+			<div style="overflow-x:auto;">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th><span>Prénom</span></th>
+						<th>Nom</th>
+						<th>Email</th>
+						<th>Téléphone</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"> 
+						Date Naissance
+						</th>
+						<th >Date Abonnement</th>
+						<th >Date Fin Abonnement</th>
+						<th >Conditionnement Mensuel</th>
+						<th >Option Cours de Groupe Mensuel</th>
+						<th >Conditionnement Trimestriel</th>
+						<th >Option Cours de GroupeTrimestriel</th>
+						<th >Conditionnement Annuel</th>
+						<th >Option Cours de Groupe Annuel</th>
+						<th >Cours de Groupe Mensuel</th>
+						<th >Cours de Groupe Trimestriel</th>
+						<th >Cours de Groupe Annuel</th>	
+						<th >Entraineur Privé</th>
+						<th >Nutritionniste</th>
+						<th >Physiothérapeute</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')" colspan="3" style="text-align: center;"> 
+							Action
+					   </th>							
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${clients.empty}">
+            			<td colspan="7"> Pas de client disponibles </td>
+        			</tr>				
+					<tr th:each="client : ${clients}" class="bg-light hover-zoom">
+						<th th:text="${client.id}"></th>
+						<th th:text="${client.firstname}"></th>
+						<th th:text="${client.lastname}"></th>
+						<th th:text="${client.email}"></th>
+						<th th:text="${client.phone}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"
+							th:text="${client.datenaissance}"> 
+						</th>
+						<th th:text="${#temporals.format(client.dateDebut, 'yyyy/MM/dd HH:mm')}"></th>
+						<th th:text="${#temporals.format(client.dateFin, 'yyyy/MM/dd HH:mm')}"></th>
+						<th th:text="${client.CM}"></th>
+						<th th:text="${client.OPTCGM}"></th>
+						<th th:text="${client.CT}"></th>
+						<th th:text="${client.OPTCGT}"></th>
+						<th th:text="${client.CA}"></th>
+						<th th:text="${client.OPTCGA}"></th>
+						<th th:text="${client.CGM}"></th>
+						<th th:text="${client.CGT}"></th>
+						<th th:text="${client.CGA}"></th>
+						<th th:text="${client.qENTP}"></th>
+						<th th:text="${client.qNUTRI}"></th>
+						<th th:text="${client.qPHYSIO}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')" >		
+							<a onclick="return confirm('Etes vous sure de vouloir supprimer ?')" class="btn btn-danger" 
+							   th:href="@{/deleteClient(id=${client.id}, keyword=${keyword}, page=${currentPage}, size=${'5'})}">
+							  Supprimer
+							</a>
+					   </th>
+						<th  sec:authorize="hasRole('ROLE_ADMIN')">  	
+							<a onclick="return confirm('Etes vous sure de vouloir mettre à jour ?')" class="btn btn-success" 
+							  th:href="@{/editClient(id=${client.id})}">
+							  Editer
+							</a>
+					   </th>					   
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<ul class="nav nav-pills">
+			
+ 		<!--	
+ 				<li th:each="page, status:${pages}">
+					<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+					   th:href="@{clients(page=${status.index})}" th:text="${status.index}"></a>
+				</li> 
+		-->
+				
+				<!-- Pagination de la page -->
+				
+				<li th:each="page, status:${pages}">
+					<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+					   th:href="@{clients(page=${status.index}, keyword=${keyword}, size=${size})}" th:text="${status.index}">
+					</a>
+				</li>				
+			
+			</ul>
+			</div>
+		</div>
+	 </div>	
+	</div>
+</body>
+</html>

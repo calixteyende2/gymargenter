@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+	<meta charset="UTF-8" />
+	<title>Register calendar</title>
+	
+ 	<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+	
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+	
+		<div class="container">
+			<div class="row mt-1">
+				<div class="col-md-8 offset-md-2">
+					<form th:action="@{/userSaveCalandrier}" method="post"
+						class="bg-white p-4">
+						<h3 class="text-center p-3"
+							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" th:if="${calandrier.id==null}">
+							Nouveau Rendez-Vous
+						</h3>
+
+						<div th:if="${message}" class="text-warning">
+							<span th:text="${message}"></span>
+						</div>
+							
+						<div class="form-group mt-4">
+							<label class="control-label" for="expediteur">Spécialiste: </label> 
+							<span th:text="${#authentication.name}" ></span>
+							<input	type="text" name="responsable" class="form-control"	readonly="readonly" required
+									th:value="${#authentication.getPrincipal().getUsername()}" hidden="hidden">
+							
+						</div>	
+												
+						<div th:object="${calandrier}">	
+								
+								<div id="specialiste">					<!-- Spécialité -->
+									<div class="form-group blu-margin" >
+										<label for="specialite_id">Spécialité</label>
+										<select  id="specialiste_id" th:name="domaine" class="form-control" th:required="true">
+											<option value="" disabled selected>Choisir specialité</option>	
+										    <option th:if="${specialiste.ENTP ne null}"
+										    		th:value="${'ENTP'}"
+										    		th:text="${'Entraineur Privé'}">
+										    </option>
+										    <option th:if="${specialiste.NUTRI ne null}"
+										    		th:value="${'NUTRI'}"
+										    		th:text="${'Nutritionniste'}">
+										    </option>
+										    <option th:if="${specialiste.PHYSIO ne null}"
+										    		th:value="${'PHYSIO'}"
+										    		th:text="${'Physiolothérapeute'}">
+										    </option>										    										    							    										    
+										</select>	
+									 </div>
+								   </div>
+									<label class="control-label">Client</label>
+									<div style="height: 150px; overflow-x:auto; margin-bottom: 20px;">
+									<table class="table table-hover">
+										<tr>
+											<th>Selectionner</th>
+											<th>Prénom</th>
+											<th>Nom</th>
+											<th>Email</th>
+											<th>Téléphone</th>
+										</tr>
+										<tr th:each="client : ${clients}" class="bg-light hover-zoom">
+											<td align="center">
+												<input type="radio" class="case1" th:name="client" th:value="${client.id}"/>
+											</td>
+											<td th:text="${client.firstname}"></td>
+											<td th:text="${client.lastname}"></td>
+											<td th:text="${client.email}"></td>
+											<td th:text="${client.phone}"></td>
+										</tr>
+									  </table>		
+									  </div>	 
+							
+										<div class="form-group">
+											<label class="control-label" for="dateDebut">Date et heure</label>
+											 <input name="dateDebut" type="datetime-local"  required 
+													class="form-control" th:value="${calandrier.dateDebut}"
+													th:classappend="${#fields.hasErrors('dateDebut')?'is-invalid':''}"
+													id="dateDebut" aria-describedby="dateDebutHelp"
+													th:attr="min=${#execInfo.now.time}">
+				
+											<div th:each="e:${#fields.errors('dateDebut')}"
+												 th:text="${e}" class="invalid-feedback">
+											</div>
+										</div>
+											
+										<div class="form-group mt">
+											<label class="control-label" for="quantite">Nombre d'heure: </label> 
+											<input	type="number" name="quantite" class="form-control" required
+													th:value="${calandrier.quantite}">
+											
+										</div>					
+																														
+										<div class="form-group">
+											<label class="control-label" for="de">Description</label> 
+											<textarea   name="description" th:value="${calandrier.description}" 
+														th:classappend="${#fields.hasErrors('description')?'is-invalid':''}"
+														class="form-control" id="description" style="height:100px;">
+											</textarea>
+				
+											<div th:each="e:${#fields.errors('description')}" th:text="${e}"
+												 class="invalid-feedback">
+											</div>
+										</div>
+									
+								</div>
+						
+						<div class="container text-center pt-1">
+							<button type="submit" class="btn btn-primary blue lighten-3">Ajouter</button>
+							<button type="reset" class="btn btn-secondary grey lighten-1">Éffacer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>       				
+	</div>
+</body>
+</html> 

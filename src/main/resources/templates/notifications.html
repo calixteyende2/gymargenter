@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<title>Notification</title>
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container mt-0">
+		<div class="card">
+			<div class="card-header">Liste des notifications</div>
+			<div class="card-body">
+			<div class="ml-1">
+				<div style="display: inline-block;">   
+					<form th:action="@{/calandriers}" method="get">
+						<div>
+							<label for="keyword">Name</label>
+							<input id="keyword" type="text" name="keyword" th:value="${keyword}"/>
+							<button class="btn btn-success">Chercher</button>							
+						</div>				
+					</form>
+				</div>	
+			</div>
+			<div style="overflow-x:auto;">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Email gestionnaire</th>
+						<th>Email client</th>
+						<th>Message</th>
+						<th>Date fin adhésion</th>					
+						<th sec:authorize="hasRole('ROLE_ADMIN')" colspan="2" style="text-align: center;"> 
+							Action
+					   </th>								
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${notifications.empty}">
+            			<td colspan="7"> Pas de notification disponibles </td>
+        			</tr> 				
+					<tr th:each="notification : ${notifications}" class="bg-light hover-zoom">
+						<th th:text="${notification.id}"></th>
+						<th th:text="${notification.emailGestionnaire}"></th>
+						<th th:text="${notification.emailClient}"></th>
+						<th th:text="${notification.message}"></th>
+						<th th:text="${#temporals.format(notification.dateFin, 'yyyy/MM/dd HH:mm')}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"> 
+							<a onclick="return confirm('Etes vous sure de vouloir supprimer ?')" class="btn btn-danger" 
+							  th:href="@{/deleteNotification(id=${notification.id}, keyword=${keyword}, page=${currentPage}, size=${'5'})}">
+							  Supprimer
+							</a>
+					   </th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"> 
+							<a class="btn btn-success" th:href="@{/lireNotification(id=${notification.id})}">
+							  Lire 
+							</a>
+					   </th>					   
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<ul class="nav nav-pills">
+     <!-- 			
+ 			    <li th:each="page, status : ${pages}">
+					<a th:class="${statut.index==currentPage?'btn btn-primary':'btn'}" 
+					   th:href="@{cycles(page=${status.index})}" th:text="${status.index}"></a>
+				</li> 
+	-->
+				
+				<li th:each="page, status : ${pages}">
+					<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+					   th:href="@{notifications(page=${status.index}, keyword=${keyword}, size=${size})}" th:text="${status.index}"></a>
+				</li>
+			</ul>
+			</div>
+		</div>
+	 </div>	
+	</div>
+</body>
+</html>

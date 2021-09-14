@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"	  
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/xsd/thymeleaf-extras-springsecurity5"
+      xmlns:dia="http://www.thymeleaf.org/xsd/thymeleaf-extras-dialect-2.1.xsd"
+      layout:decorate="template2">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+	
+<title>Details client</title>
+
+</head>
+<body style="background: #e2e2e2;">
+	<div layout:fragment="pageContent">
+		<div class="container">
+			<div class="row mt-0">
+				<div class="col-md-8 offset-md-2" style="overflow-x:auto;">  
+					<table class="table mb-0" >						
+						<tbody th:object="${client}">			
+							<tr  class="bg-light hover-zoom">
+								<th>Prénom</th>
+								<td th:text="${client.firstname}"></td>
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th>Nom</th>
+								<td th:text="${client.lastname}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th>Email</th>
+								<td th:text="${client.email}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th>Téléphone</th>
+								<td th:text="${client.phone}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th > <!-- sec:authorize="hasRole('ROLE_ADMIN')" -->
+								Date Naissance
+								</th>								
+								<td th:text="${client.datenaissance}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Date Abonnement</th>
+								<td th:text="${#temporals.format(client.dateDebut, 'yyyy/MM/dd HH:mm')}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Date Fin Abonnement</th>
+								<td th:text="${#temporals.format(client.dateFin, 'yyyy/MM/dd HH:mm')}"></td>							
+							<tr  class="bg-light hover-zoom">
+								<th >Conditionnement Mensuel</th>
+								<td th:text="${client.CM}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Option Cours de Groupe Mensuel</th>								
+								<td th:text="${client.OPTCGM}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Conditionnement Trimestriel</th>
+								<td th:text="${client.CT}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Option Cours de GroupeTrimestriel</th>
+								<td th:text="${client.OPTCGT}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Conditionnement Annuel</th>
+								<td th:text="${client.CA}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Option Cours de Groupe Annuel</th>
+								<td th:text="${client.OPTCGA}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Cours de Groupe Mensuel</th>
+								<td th:text="${client.CGM}"></td>							
+							</tr>																																																	
+							<tr  class="bg-light hover-zoom">
+								<th >Cours de Groupe Trimestriel</th>
+								<td th:text="${client.CGT}"></td>							
+							</tr>										
+							<tr  class="bg-light hover-zoom">
+								<th >Cours de Groupe Annuel</th>
+								<td th:text="${client.CGA}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Entraineur Privé</th>
+								<td class="text-center" th:text="${client.qENTP}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th >Nutritionniste</th>
+								<td class="text-center" th:text="${client.qNUTRI}"></td>							
+							</tr>
+							<tr  class="bg-light hover-zoom">
+								<th>Physiothérapeute</th>
+								<td class="text-center" th:text="${client.qPHYSIO}"></td>							
+							</tr>
+							<tr>
+						</tbody>
+					</table>
+					<span>
+						<a class="btn btn-primary btn-block mt-0" th:href="@{/index}">Fermer</a>
+					</span>						
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html> 
