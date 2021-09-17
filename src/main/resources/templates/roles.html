@@ -44,16 +44,16 @@
 					<tr th:if="${roles.empty}">
             			<td colspan="4"> Pas de role disponible </td>
         			</tr>				
-					<tr th:each="role :${roles}" class="bg-light hover-zoom">
+					<tr th:each="role : ${roles}" class="bg-light hover-zoom">
 						<th th:text="${role.id}"></th>
 						<th th:text="${role.roleName}"></th>
-						<th sec:authorize="hasRole('ROLE_ADMIN')">   
+						<th sec:authorize="hasRole('ROLE_ADMIN')" style="text-align: center;">   
 							<a onclick="return confirm('Etes vous sure de vouloir supprimer ?')" class="btn btn-danger" 
-							  th:href="@{/deleteRole(id=${role.id}, keyword=${keyword}, page=${currentPage}, size=${'5'})}">
+							   th:href="@{/deleteRole(id=${role.id}, keyword=${keyword}, page=${currentPage}, size=${'5'})}">
 							  Supprimer
 							</a>
 					   </th>
-						<th sec:authorize="hasRole('ROLE_ADMIN')">		
+						<th sec:authorize="hasRole('ROLE_ADMIN')" style="text-align: center;">		
 							<a onclick="return confirm('Etes vous sure de vouloir mettre à jour ?')" class="btn btn-success" 
 							  th:href="@{/editRole(id=${role.id})}">
 							  Editer

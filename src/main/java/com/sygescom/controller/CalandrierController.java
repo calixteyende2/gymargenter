@@ -102,7 +102,7 @@ public class CalandrierController {
 		if(calandrier.getDomaine().equals("ENTP")) {
 			if(client.getQENTP()<calandrier.getQuantite()) {
 				List<Client> clientsList = clientRepository.findAll();
-				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getResponsable());
+				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getSpecialiste());
 				model.addAttribute("participants", clientsList);
 				model.addAttribute("specialiste", specialiste);
 				model.addAttribute("message", "Pas assez d'heure du service entrainneur privé pour ce client!");
@@ -112,18 +112,17 @@ public class CalandrierController {
 			}else {
 				client.setQENTP(client.getQENTP()-calandrier.getQuantite());
 				clientRepository.save(client);
-				calandrier.setParticipant(client.getEmail());
-				client.getCalandriersList().add(calandrier);
+				calandrier.setClient(client.getEmail());
 				calandrierRepository.save(calandrier);
 				System.out.println(calandrier);
 				System.out.println("Calandrier enregistré avec success");
-				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getResponsable();
+				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getSpecialiste();
 			}
 		}
 		if(calandrier.getDomaine().equals("PHYSIO")) {
 			if(client.getQPHYSIO()<calandrier.getQuantite()) {
 				List<Client> clientsList = clientRepository.findAll();
-				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getResponsable());
+				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getSpecialiste());
 				model.addAttribute("participants", clientsList);
 				model.addAttribute("specialiste", specialiste);
 				model.addAttribute("message", "Pas assez d'heure du service physio pour ce client!");
@@ -133,18 +132,17 @@ public class CalandrierController {
 			}else {
 				client.setQPHYSIO(client.getQPHYSIO()-calandrier.getQuantite());
 				clientRepository.save(client);
-				calandrier.setParticipant(client.getEmail());
-				client.getCalandriersList().add(calandrier);
+				calandrier.setClient(client.getEmail());
 				calandrierRepository.save(calandrier);
 				System.out.println(calandrier);
 				System.out.println("Calandrier enregistré avec success");	
-				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getResponsable();
+				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getSpecialiste();
 			}
 		}
 		if(calandrier.getDomaine().equals("NUTRI")) {
 			if(client.getQNUTRI()<calandrier.getQuantite()) {
 				List<Client> clientsList = clientRepository.findAll();
-				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getResponsable());
+				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getSpecialiste());
 				model.addAttribute("participants", clientsList);
 				model.addAttribute("specialiste", specialiste);
 				model.addAttribute("message", "Pas assez d'heure du service nutritionniste pour ce client!");
@@ -154,16 +152,15 @@ public class CalandrierController {
 			}else {
 				client.setQNUTRI(client.getQNUTRI()-calandrier.getQuantite());
 				clientRepository.save(client);
-				calandrier.setParticipant(client.getEmail());
-				client.getCalandriersList().add(calandrier);
+				calandrier.setClient(client.getEmail());
 				calandrierRepository.save(calandrier);
 				System.out.println(calandrier);
 				System.out.println("Calandrier enregistré avec success");
-				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getResponsable();
+				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getSpecialiste();
 			}
 		}
 
-		return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getResponsable();
+		return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getSpecialiste();
 	}
 	
 

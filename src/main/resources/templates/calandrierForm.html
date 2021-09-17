@@ -34,11 +34,10 @@
 						</div>
 							
 						<div class="form-group mt-4">
-							<label class="control-label" for="expediteur">Spécialiste: </label> 
+							<label class="control-label" for="specialiste">Spécialiste: </label> 
 							<span th:text="${#authentication.name}" ></span>
-							<input	type="text" name="responsable" class="form-control"	readonly="readonly" required
-									th:value="${#authentication.getPrincipal().getUsername()}" hidden="hidden">
-							
+							<input	type="text" name="specialiste" class="form-control"	 required
+									th:value="${#authentication.getPrincipal().getUsername()}" hidden="hidden">							
 						</div>	
 												
 						<div th:object="${calandrier}">	
@@ -75,7 +74,7 @@
 										</tr>
 										<tr th:each="client : ${clients}" class="bg-light hover-zoom">
 											<td align="center">
-												<input type="radio" class="case1" th:name="client" th:value="${client.id}"/>
+												<input type="radio" class="case1" th:name="client" th:value="${client.id}" required="required"/>
 											</td>
 											<td th:text="${client.firstname}"></td>
 											<td th:text="${client.lastname}"></td>
@@ -100,8 +99,8 @@
 											
 										<div class="form-group mt">
 											<label class="control-label" for="quantite">Nombre d'heure: </label> 
-											<input	type="number" name="quantite" class="form-control" required
-													th:value="${calandrier.quantite}">
+											<input type="number" name="quantite" class="form-control" required
+												   th:value="${calandrier.quantite}">
 											
 										</div>					
 																														

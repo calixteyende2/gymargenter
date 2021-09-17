@@ -86,9 +86,9 @@
 						<th th:text="${client.CGM}"></th>
 						<th th:text="${client.CGT}"></th>
 						<th th:text="${client.CGA}"></th>
-						<th th:text="${client.qENTP}"></th>
-						<th th:text="${client.qNUTRI}"></th>
-						<th th:text="${client.qPHYSIO}"></th>
+						<th th:text="${client.qENTP}" class="text-center"></th>
+						<th th:text="${client.qNUTRI}" class="text-center"></th>
+						<th th:text="${client.qPHYSIO}" class="text-center"></th>
 						<th sec:authorize="hasRole('ROLE_ADMIN')" >		
 							<a onclick="return confirm('Etes vous sure de vouloir supprimer ?')" class="btn btn-danger" 
 							   th:href="@{/deleteClient(id=${client.id}, keyword=${keyword}, page=${currentPage}, size=${'5'})}">

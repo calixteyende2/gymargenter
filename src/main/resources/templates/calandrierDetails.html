@@ -26,14 +26,14 @@
 						   enctype="multipart/form-data" class="bg-white p-4">
 						<h5 class="text-center p-3"
 							style="background: #e2e2e2;  min-height: 60px; border-radius: 5px;">
-							Détails de la rencontre
+							Détails du rendez-vous
 						</h5>
 						
 						<div th:object="${calandrier}">	
  						
 						<div class="form-group form-inline  mt-5">
-							<label class="control-label border-0" for="responsable">Spécialiste: </label> 
-							<input  class="form-control border-0 bg-white" style="margin-left: 20px;" readonly="readonly" id="responsable" th:value="${calandrier.responsable}">						
+							<label class="control-label border-0" for="specialiste">Spécialiste: </label> 
+							<input  class="form-control border-0 bg-white" style="margin-left: 20px;" readonly="readonly" id="specialiste" th:value="${calandrier.specialiste}">						
 						</div>
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="domaine">Spécialité:</label>
@@ -41,7 +41,7 @@
 						</div>						
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="client">Client:</label>
-							<input class="form-control border-0 bg-white" style="margin-left: 50px;" readonly="readonly" id="participant"  th:value="${calandrier.participant}">						
+							<input class="form-control border-0 bg-white" style="margin-left: 50px;" readonly="readonly" id="client"  th:value="${calandrier.client}">						
 						</div>
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="dateDebut">Date:</label>
@@ -53,7 +53,7 @@
 						</div>	
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="quantite">Durée:</label>
-							<input class="form-control border-0 bg-white" style="margin-left: 48px;" readonly="readonly" id="quantite" th:value="${calandrier.quantite}">						
+							<input class="form-control border-0 bg-white" style="margin-left: 48px;" readonly="readonly" id="quantite" th:value="${calandrier.quantite+' heure(s)'}">						
 						</div>								
 	                    <div class="form-group">
 	    					<span>

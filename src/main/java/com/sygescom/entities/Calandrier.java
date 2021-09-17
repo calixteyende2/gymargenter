@@ -27,9 +27,8 @@ public class Calandrier implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-    @NotEmpty
-    @NotNull
-    private String responsable; 
+
+    private String specialiste;
     
     @NotEmpty
     @NotNull
@@ -38,7 +37,7 @@ public class Calandrier implements Serializable {
   
     @NotEmpty
     @NotNull
-    private String participant;
+    private String client;
     
     private String description;
     	
@@ -48,7 +47,7 @@ public class Calandrier implements Serializable {
 	private LocalDateTime dateDebut;
 	
 	
-    @NotEmpty
+    
     @NotNull
 	private int quantite;
 

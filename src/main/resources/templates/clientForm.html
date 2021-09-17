@@ -245,19 +245,19 @@
 								  <div class="items">
 								  	<div class="d-flex">
 									  	<div class="d-inline-block col-md-6">
-									    <input disabled class="checkbox" type="checkbox" id="CM" th:each="service, index: ${services}" th:if="${service.getCode()=='CM'}" th:value="${service.name}" name="CM">
-									    <label class="label" for="CM">Conditionnement Mensuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CM'}" th:text="${service.prix}"> </span>$</label>	<br>							    
-									    <input disabled  class="checkbox" type="checkbox" id="CT" th:each="service, index: ${services}" th:if="${service.getCode()=='CT'}" th:value="${service.name}" name="CT">
-									    <label class="label" for="CT">Conditionnement Trimestriel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CT'}" th:text="${service.prix}"> </span>$</label><br>								    
-									    <input disabled  class="checkbox" type="checkbox" id="CA" th:each="service, index: ${services}" th:if="${service.getCode()=='CA'}" th:value="${service.name}" name="CA">
-									    <label class="label" for="CA">Conditionnement Annuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CA'}" th:text="${service.prix}"> </span>$</label>
+										    <input disabled class="checkbox" type="checkbox" id="CM" th:each="service, index: ${services}" th:if="${service.getCode()=='CM'}" th:value="${service.name}" name="CM">
+										    <label class="label" for="CM">Conditionnement Mensuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CM'}" th:text="${service.prix}"> </span>$</label>	<br>							    
+										    <input disabled  class="checkbox" type="checkbox" id="CT" th:each="service, index: ${services}" th:if="${service.getCode()=='CT'}" th:value="${service.name}" name="CT">
+										    <label class="label" for="CT">Conditionnement Trimestriel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CT'}" th:text="${service.prix}"> </span>$</label><br>								    
+										    <input disabled  class="checkbox" type="checkbox" id="CA" th:each="service, index: ${services}" th:if="${service.getCode()=='CA'}" th:value="${service.name}" name="CA">
+										    <label class="label" for="CA">Conditionnement Annuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CA'}" th:text="${service.prix}"> </span>$</label>
 									   	</div>
 									   	<div class="d-inline-block col-md-6">						    								    
-									    <input disabled  class="checkbox" type="checkbox" id="OPTCGM" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGM'}" th:value="${service.name}" name="OPTCGM">
-									    <label class="label" for="OPTCGM">Option Cours de Groupe Mensuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGM'}" th:text="${service.prix}"> </span>$</label><br>
-									    <input disabled  class="checkbox" type="checkbox" id="OPTCGT" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGT'}" th:value="${service.name}" name="OPTCGT">
-									    <label class="label" for="OPTCGT">Option Cours de GroupeTrimestriel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGT'}" th:text="${service.prix}"> </span>$</label><br>
-									    <input disabled  class="checkbox" type="checkbox" id="OPTCGA" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGA'}" th:value="${service.name}" name="OPTCGA">
+										    <input disabled  class="checkbox" type="checkbox" id="OPTCGM" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGM'}" th:value="${service.name}" name="OPTCGM">
+										    <label class="label" for="OPTCGM">Option Cours de Groupe Mensuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGM'}" th:text="${service.prix}"> </span>$</label><br>
+										    <input disabled  class="checkbox" type="checkbox" id="OPTCGT" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGT'}" th:value="${service.name}" name="OPTCGT">
+										    <label class="label" for="OPTCGT">Option Cours de GroupeTrimestriel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGT'}" th:text="${service.prix}"> </span>$</label><br>
+										    <input disabled  class="checkbox" type="checkbox" id="OPTCGA" th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGA'}" th:value="${service.name}" name="OPTCGA">
 									    <label class="label" for="OPTCGA">Option Cours de Groupe Annuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='OPTCGA'}" th:text="${service.prix}"> </span>$</label>
 									  </div>
 								  </div>
@@ -273,7 +273,7 @@
 										    <input disabled class="checkbox" type="checkbox" id="CGA" th:each="service, index: ${services}" th:if="${service.getCode()=='CGA'}" th:value="${service.name}" name="CGA">
 										    <label class="label" for="CGA">Cours de Groupe Annuel: <span th:each="service, index: ${services}" th:if="${service.getCode()=='CGA'}" th:text="${service.prix}"> </span>$</label><br>
 										</div>
-										<div class="d-inline-block col-md-6  mr-1">
+										<div class="d-inline-block col-md-6">
 										    <label class="label" for="ENTP">Entraineur Privé: <span th:each="service, index: ${services}" th:if="${service.getCode()=='ENTP'}" th:text="${service.prix}"> </span>$/heure</label><span style="margin-left: 12px;">QTÉ</span> 
 										    <input style="width: 70px; height: 20px; margin-left: 8px;" placeholder="quantité" type="number" name="qENTP" th:value="${client.qENTP}"><br>  
 										    								    

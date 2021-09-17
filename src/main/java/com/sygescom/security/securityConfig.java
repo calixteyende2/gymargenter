@@ -74,7 +74,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter implements WebM
 		http.authorizeRequests().antMatchers( "/admin/**", "/save**/**",  "/delete**/**", "edit**/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/utilisateurs**/**").hasAnyRole("USER", "ADMIN");	
 		http.authorizeRequests().antMatchers("/userSave**/**", "/userEdit**/**", "/userDelete**/**",  "/userLire**/**" ).hasAnyRole("USER");	
-		http.authorizeRequests().antMatchers("/user**/**", "/", "/index**/**", "/login**/**", "/abonnement**/**", "/css**/**", "/img**/**", "/js**/**","/webjars**/**").permitAll();
+		http.authorizeRequests().antMatchers("/user**/**", "/", "/index**/**", "/login**/**", "/abonnement**/**", "/contact**/**", "/css**/**", "/img**/**", "/js**/**","/webjars**/**").permitAll();
 		http.exceptionHandling().accessDeniedPage("/notAuthorized");
 		http.authorizeRequests().anyRequest().authenticated();
 		//http.csrf().disable(); //http.csrf();  //http.csrf().disabled() si on utilise jwt pour authentification

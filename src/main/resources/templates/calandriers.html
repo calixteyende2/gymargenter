@@ -50,9 +50,9 @@
         			</tr> 				
 					<tr th:each="calandrier:${calandriers}" class="bg-light hover-zoom">
 						<th th:text="${calandrier.id}"></th>
-						<th th:text="${calandrier.responsable}"></th>
+						<th th:text="${calandrier.specialiste}"></th>
 						<th th:text="${calandrier.domaine}"></th>
-						<th th:text="${calandrier.participant}"></th>
+						<th th:text="${calandrier.client}"></th>
 						<th th:text="${#temporals.format(calandrier.dateDebut, 'yyyy/MM/dd HH:mm')}"></th>						
 						<th th:text="${calandrier.quantite}"></th>
 						<th th:text="${calandrier.description}"></th>
