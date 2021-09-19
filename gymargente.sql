@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 16 sep. 2021 à 15:35
+-- Généré le : Dim 19 sep. 2021 à 17:23
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -62,37 +62,6 @@ INSERT INTO `adresse` (`id`, `nom_rue`, `numero_app`, `numero_rue`, `pays`, `pro
 -- --------------------------------------------------------
 
 --
--- Structure de la table `calandrier`
---
-
-DROP TABLE IF EXISTS `calandrier`;
-CREATE TABLE IF NOT EXISTS `calandrier` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `date_debut` datetime(6) DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `domaine` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `quantite` int(11) NOT NULL,
-  `client` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `specialiste` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `participant` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `responsable` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `specialiste_id` bigint(20) DEFAULT NULL,
-  `client_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKlfba3mueol97p128s37wpr5fa` (`specialiste_id`),
-  KEY `FKccewmgvnka5rve6pbk4pfj7wy` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `calandrier`
---
-
-INSERT INTO `calandrier` (`id`, `date_debut`, `description`, `domaine`, `quantite`, `client`, `specialiste`, `participant`, `responsable`, `specialiste_id`, `client_id`) VALUES
-(4, '2021-09-15 15:52:00.000000', 'Séance de travail											', 'ENTP', 2, 'ravenmarshall@yahoo.fr', 'leannali@yahoo.fr', '', '', NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `notification`
 --
 
@@ -147,6 +116,31 @@ INSERT INTO `plan` (`id`, `code`, `name`, `prix`) VALUES
 (10, 'ENTP', 'Entraineur Privé', 75),
 (11, 'PHYSIO', 'Physiothérapeute', 75),
 (12, 'NUTRI', 'Nutritionniste ', 75);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `rendez_vous`
+--
+
+DROP TABLE IF EXISTS `rendez_vous`;
+CREATE TABLE IF NOT EXISTS `rendez_vous` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `client` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `date_debut` datetime(6) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `domaine` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `quantite` int(11) NOT NULL,
+  `specialiste` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `rendez_vous`
+--
+
+INSERT INTO `rendez_vous` (`id`, `client`, `date_debut`, `description`, `domaine`, `quantite`, `specialiste`) VALUES
+(2, 'matthiasacevedo@yahoo.fr', '2021-09-19 17:17:00.000000', 'Séance de discussion											', 'NUTRI', 2, 'leannali@yahoo.fr');
 
 -- --------------------------------------------------------
 
@@ -274,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 
 INSERT INTO `utilisateur` (`dtype`, `id`, `datenaissance`, `email`, `firstname`, `lastname`, `password`, `phone`, `ca`, `cga`, `cgm`, `cgt`, `cm`, `ct`, `entp`, `nutri`, `optcga`, `optcgm`, `optcgt`, `physio`, `date_debut`, `date_fin`, `adresse_id`, `qentp`, `qnutri`, `qphysio`) VALUES
 ('Gestionnaire', 1, '2021-09-07', 'calixte@yahoo.fr', 'CALIXTE', 'YENDE', '$2a$10$Ls4OT/kJdVYDhYjuO2BqpeWOOCqNe.L6RPDZY565ha9L4v6KK93Tm', '5819907657', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL),
-('Client', 5, '2021-09-10', 'matthiasacevedo@yahoo.fr', 'Matthias ', 'Acevedo', '$2a$10$AIpSqTC5HIO8LlLSr43heukp7JId8/or7sBCgDyL5AV.WzDyzVD0W', '5819907657', NULL, NULL, NULL, NULL, 'Conditionnement Mensuel', NULL, NULL, NULL, NULL, 'Option Cours de Groupe Mensuel', NULL, NULL, '2021-09-10 21:39:00', '2021-12-10 23:39:00', 6, 6, 6, 7),
+('Client', 5, '2021-09-10', 'matthiasacevedo@yahoo.fr', 'Matthias ', 'Acevedo', '$2a$10$AIpSqTC5HIO8LlLSr43heukp7JId8/or7sBCgDyL5AV.WzDyzVD0W', '5819907657', NULL, NULL, NULL, NULL, 'Conditionnement Mensuel', NULL, NULL, NULL, NULL, 'Option Cours de Groupe Mensuel', NULL, NULL, '2021-09-10 21:39:00', '2021-12-10 23:39:00', 6, 5, 4, 7),
 ('Client', 6, '2021-09-10', 'ravenmarshall@yahoo.fr', 'Raven ', 'Marshall', '$2a$10$Snv4SVbRV6iFgLYyIt28auSwWDJyLLXtWqXWUH2be/0bsqrMU8AJ.', '5819907657', NULL, NULL, NULL, NULL, 'Conditionnement Mensuel', NULL, NULL, NULL, NULL, 'Option Cours de Groupe Mensuel', NULL, NULL, '2021-09-10 23:22:00', '2021-12-11 01:22:00', 7, 3, 9, 12),
 ('Specialiste', 7, '2021-09-10', 'leannali@yahoo.fr', 'Leanna ', 'Li', '$2a$10$CYtptsTEW/8KoSxchFv/aOQtO8/gBcgRhWX24rw4bYKpDo4p5bE6S', '5819907657', NULL, NULL, NULL, NULL, NULL, NULL, 'ENTP', 'NUTRI', NULL, NULL, NULL, 'PHYSIO', NULL, NULL, 8, NULL, NULL, NULL),
 ('Gestionnaire', 9, '2021-09-12', 'calixtehh@yahoo.fr', 'CALIXTE', 'YENDE', '$2a$10$EjyLzOjqpJV0xDY/R.pO5OM2CuhXwsVHHlH.0dPcLT4fxQRZNenXK', '5819907657', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL),
@@ -283,13 +277,6 @@ INSERT INTO `utilisateur` (`dtype`, `id`, `datenaissance`, `email`, `firstname`,
 --
 -- Contraintes pour les tables déchargées
 --
-
---
--- Contraintes pour la table `calandrier`
---
-ALTER TABLE `calandrier`
-  ADD CONSTRAINT `FKccewmgvnka5rve6pbk4pfj7wy` FOREIGN KEY (`client_id`) REFERENCES `utilisateur` (`id`),
-  ADD CONSTRAINT `FKlfba3mueol97p128s37wpr5fa` FOREIGN KEY (`specialiste_id`) REFERENCES `utilisateur` (`id`);
 
 --
 -- Contraintes pour la table `user`
