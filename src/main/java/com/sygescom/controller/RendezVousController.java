@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sygescom.entities.Calandrier;
+import com.sygescom.entities.RendezVous;
 import com.sygescom.entities.Client;
 import com.sygescom.entities.Specialiste;
-import com.sygescom.repository.CalandrierRepository;
+import com.sygescom.repository.RendezVousRepository;
 import com.sygescom.repository.ClientRepository;
 import com.sygescom.repository.SpecialisteRepository;
 
 @Controller
-public class CalandrierController {
+public class RendezVousController {
 	
 	@Autowired
-	private CalandrierRepository calandrierRepository;
+	private RendezVousRepository rendezVousRepository;
 	
 	@Autowired
 	private SpecialisteRepository specialisteRepository;
@@ -41,32 +41,32 @@ public class CalandrierController {
 	
 	
 		
-	  @GetMapping(path = "/calandriers") 
+	  @GetMapping(path = "/rendezVous") 
 	  public String listCalandriers(
 			  Model model, 
 			  @RequestParam(name = "keyword", defaultValue = "")String mc,
 			  @RequestParam(name = "page", defaultValue = "0")int page, 
 			  @RequestParam(name = "size", defaultValue = "5")int size){
-		  Page<Calandrier>pageCalandriers = calandrierRepository.findAll(PageRequest.of(page, size));
-		  model.addAttribute("calandriers", pageCalandriers.getContent());
-		  model.addAttribute("pages", new int[pageCalandriers.getTotalPages()]);
+		  Page<RendezVous>pageRendezVous = rendezVousRepository.findAll(PageRequest.of(page, size));
+		  model.addAttribute("rendezVous", pageRendezVous.getContent());
+		  model.addAttribute("pages", new int[pageRendezVous.getTotalPages()]);
 		  model.addAttribute("currentPage", page); 
-		  return "calandriers"; //List<Calendrier> calendriers= calendrierRepository.findAll(); 
+		  return "rendezVous"; //List<RendezVous> rendezVous= rendezVousRepository.findAll(); 
 	  }
 	  
 	  
 	  	  
-	  @GetMapping(path = "/userDeleteCalandrier") 
+	  @GetMapping(path = "/userDeleteRendezVous") 
 	  public String delete(
 			  Long id, String keyword, int page, int size, Model model, 
 			  @RequestParam(name = "email")String email) { 
-	      calandrierRepository.deleteById(id);
+		  rendezVousRepository.deleteById(id);
 	      
-		  return "redirect:/calandriers?page="+page+"&size="+size+"&email="+email;
+		  return "redirect:/rendezVous?page="+page+"&size="+size+"&email="+email;
       }
 	 
 	  
-	@GetMapping("/calandrierForm")
+	@GetMapping("/rendezVousForm")
 	public String registerForm(
 			Model model,
 			  @RequestParam(name = "email")String email) {
@@ -74,20 +74,20 @@ public class CalandrierController {
 		specialiste = specialisteRepository.findByEmail(email);
 		model.addAttribute("clients", clientsList);
 		model.addAttribute("specialiste", specialiste);
-		model.addAttribute("calandrier", new Calandrier());		
+		model.addAttribute("rendezVous", new RendezVous());		
 		model.addAttribute("mode", "new");
-		System.out.println("calandrierForm opening");
+		System.out.println("rendezVousForm opening");
 		System.out.println("Specialiste: " + specialiste);
 		
-		return "calandrierForm";
+		return "rendezVousForm";
 	}
 	
 	
 	
-	@PostMapping("/userSaveCalandrier")
+	@PostMapping("/userSaveRendezVous")
 	public String saveCalendrier(
 			Model model,
-			@Valid @ModelAttribute("calandrier") Calandrier calandrier,
+			@Valid @ModelAttribute("rendezVous") RendezVous rendezVous,
 			@RequestParam(name = "client")Client client,
 			@RequestParam(name = "page", defaultValue = "0")int page,
 			@RequestParam(name = "size", defaultValue = "5")int size,			  
@@ -95,91 +95,91 @@ public class CalandrierController {
 			BindingResult result) {
 		if (result.hasErrors()) {
 			System.out.println(result);
-			return "calandrierForm";
+			return "rendezVousForm";
 		}
 		
 		
-		if(calandrier.getDomaine().equals("ENTP")) {
-			if(client.getQENTP()<calandrier.getQuantite()) {
+		if(rendezVous.getDomaine().equals("ENTP")) {
+			if(client.getQENTP()<rendezVous.getQuantite()) {
 				List<Client> clientsList = clientRepository.findAll();
-				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getSpecialiste());
+				Specialiste specialiste = specialisteRepository.findByEmail(rendezVous.getSpecialiste());
 				model.addAttribute("participants", clientsList);
 				model.addAttribute("specialiste", specialiste);
 				model.addAttribute("message", "Pas assez d'heure du service entrainneur privé pour ce client!");
-				model.addAttribute("calandrier", new Calandrier());		
+				model.addAttribute("rendezVous", new RendezVous());		
 				model.addAttribute("mode", "new");	
-				return "calandrierForm";
+				return "rendezVousForm";
 			}else {
-				client.setQENTP(client.getQENTP()-calandrier.getQuantite());
+				client.setQENTP(client.getQENTP()-rendezVous.getQuantite());
 				clientRepository.save(client);
-				calandrier.setClient(client.getEmail());
-				calandrierRepository.save(calandrier);
-				System.out.println(calandrier);
-				System.out.println("Calandrier enregistré avec success");
-				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getSpecialiste();
+				rendezVous.setClient(client.getEmail());
+				rendezVousRepository.save(rendezVous);
+				System.out.println(rendezVous);
+				System.out.println("Rendez-vous enregistré avec success");
+				return "redirect:/rendezVous?page="+page+"&size="+size+"&email="+rendezVous.getSpecialiste();
 			}
 		}
-		if(calandrier.getDomaine().equals("PHYSIO")) {
-			if(client.getQPHYSIO()<calandrier.getQuantite()) {
+		if(rendezVous.getDomaine().equals("PHYSIO")) {
+			if(client.getQPHYSIO()<rendezVous.getQuantite()) {
 				List<Client> clientsList = clientRepository.findAll();
-				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getSpecialiste());
+				Specialiste specialiste = specialisteRepository.findByEmail(rendezVous.getSpecialiste());
 				model.addAttribute("participants", clientsList);
 				model.addAttribute("specialiste", specialiste);
 				model.addAttribute("message", "Pas assez d'heure du service physio pour ce client!");
-				model.addAttribute("calandrier", new Calandrier());		
+				model.addAttribute("rendezVous", new RendezVous());		
 				model.addAttribute("mode", "new");	
-				return "calandrierForm";
+				return "rendezVousForm";
 			}else {
-				client.setQPHYSIO(client.getQPHYSIO()-calandrier.getQuantite());
+				client.setQPHYSIO(client.getQPHYSIO()-rendezVous.getQuantite());
 				clientRepository.save(client);
-				calandrier.setClient(client.getEmail());
-				calandrierRepository.save(calandrier);
-				System.out.println(calandrier);
-				System.out.println("Calandrier enregistré avec success");	
-				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getSpecialiste();
+				rendezVous.setClient(client.getEmail());
+				rendezVousRepository.save(rendezVous);
+				System.out.println(rendezVous);
+				System.out.println("Rendez-vous enregistré avec success");	
+				return "redirect:/rendezVous?page="+page+"&size="+size+"&email="+rendezVous.getSpecialiste();
 			}
 		}
-		if(calandrier.getDomaine().equals("NUTRI")) {
-			if(client.getQNUTRI()<calandrier.getQuantite()) {
+		if(rendezVous.getDomaine().equals("NUTRI")) {
+			if(client.getQNUTRI()<rendezVous.getQuantite()) {
 				List<Client> clientsList = clientRepository.findAll();
-				Specialiste specialiste = specialisteRepository.findByEmail(calandrier.getSpecialiste());
+				Specialiste specialiste = specialisteRepository.findByEmail(rendezVous.getSpecialiste());
 				model.addAttribute("participants", clientsList);
 				model.addAttribute("specialiste", specialiste);
 				model.addAttribute("message", "Pas assez d'heure du service nutritionniste pour ce client!");
-				model.addAttribute("calandrier", new Calandrier());		
+				model.addAttribute("rendezVous", new RendezVous());		
 				model.addAttribute("mode", "new");	
-				return "calandrierForm";
+				return "rendezVousForm";
 			}else {
-				client.setQNUTRI(client.getQNUTRI()-calandrier.getQuantite());
+				client.setQNUTRI(client.getQNUTRI()-rendezVous.getQuantite());
 				clientRepository.save(client);
-				calandrier.setClient(client.getEmail());
-				calandrierRepository.save(calandrier);
-				System.out.println(calandrier);
-				System.out.println("Calandrier enregistré avec success");
-				return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getSpecialiste();
+				rendezVous.setClient(client.getEmail());
+				rendezVousRepository.save(rendezVous);
+				System.out.println(rendezVous);
+				System.out.println("Rendez-vous enregistré avec success");
+				return "redirect:/rendezVous?page="+page+"&size="+size+"&email="+rendezVous.getSpecialiste();
 			}
 		}
 
-		return "redirect:/calandriers?page="+page+"&size="+size+"&email="+calandrier.getSpecialiste();
+		return "redirect:/rendezVous?page="+page+"&size="+size+"&email="+rendezVous.getSpecialiste();
 	}
 	
 
-	@GetMapping("/userLireCalandrier")
+	@GetMapping("/userLireRendezVous")
 	public String LireForm(Model model, Long id) {
-		Calandrier calandrier = calandrierRepository.findById(id).get();
-		model.addAttribute("calandrier", calandrier);
+		RendezVous rendezVous = rendezVousRepository.findById(id).get();
+		model.addAttribute("rendezVous", rendezVous);
 		model.addAttribute("mode", "edit");
-		return "calandrierDetails";
+		return "rendezVousDetails";
 	}
 	
 	
-	@GetMapping("/userEditCalandrier")
+	@GetMapping("/userEditRendezVous")
 	public String editForm(Model model, Long id) {
-		Calandrier calandrier = calandrierRepository.findById(id).get();
-		model.addAttribute("calandrier", calandrier);
+		RendezVous rendezVous = rendezVousRepository.findById(id).get();
+		model.addAttribute("rendezVous", rendezVous);
 		model.addAttribute("mode", "edit");
 		
-		return "calandrierForm";
+		return "rendezVousForm";
 	}
 	
 

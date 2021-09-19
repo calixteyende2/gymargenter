@@ -145,8 +145,8 @@ public class ClientController {
 		  }	
 									/* Abonnement  Checking */		
 				if((client.getCA()==null) && (client.getCGA()==null) && (client.getCGM()==null) && (client.getCGT()==null)
-				&& (client.getCM()==null) && (client.getCT()==null) && (client.getQENTP()==0) && (client.getQPHYSIO()==0) 
-				&& (client.getQNUTRI()==0) && (client.getOPTCGA()==null) && (client.getOPTCGM()==null) && (client.getOPTCGT()==null)) {
+				&& (client.getCM()==null) && (client.getCT()==null)  && (client.getOPTCGA()==null) && (client.getOPTCGM()==null) 
+				&& (client.getOPTCGT()==null) && (client.getQENTP()==0) && (client.getQPHYSIO()==0) && (client.getQNUTRI()==0)) {
 				
 					String message = "Veuillez choisir un plan d'abonnement svp!!!";
 					List<Plan> services =  planRepository.findAll();
@@ -163,11 +163,13 @@ public class ClientController {
 				adresse.getUtilisateurList().add(client);
 				client.setPassword(passwordEncoder.encode(client.getPassword()));			
 				clientRepository.save(client);
+				//Ajout de notification au gestionnaire
 				notification.setEmailGestionnaire(authentication.getName());
 				notification.setEmailClient(client.getEmail());
 				notification.setMessage("Fin abonnement dans 30 jours");
 				notification.setDateFin(client.getDateFin());
-				asynchronousService.processData(notification);					
+				asynchronousService.processData(notification);
+				//Ajout au registre authentification et Autorisation
 				userRepository.save(new User(client.getEmail(), client.getPassword(), true));
 				userRoleRepository.save(new User_Role(client.getEmail(), "CLIENT"));
 				System.out.println("Client enregistré avec success");

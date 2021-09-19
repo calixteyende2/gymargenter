@@ -36,12 +36,10 @@ public class Utilisateur implements Serializable  {
 	
 	@NotNull
 	@NotBlank(message = "Prenom utilisateur ne peut �tre vide !!")
-	@Size(min = 4,max = 10,message="Prenom doit avoir entre 4 et 10 characteres !!")
 	private String firstname;
 	
 	@NotNull
 	@NotBlank(message = "Nom utilisateur ne peut �tre vide !!")
-	@Size(min = 4,max = 10,message="Nom doit avoir entre 4 et 10 characteres !!")
 	private String lastname;
 	
 	@NotNull

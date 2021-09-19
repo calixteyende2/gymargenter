@@ -22,10 +22,10 @@
 		<div class="container">
 			<div class="row mt-1">
 				<div class="col-md-8 offset-md-2">
-					<form th:action="@{/userSaveCalandrier}" method="post"
+					<form th:action="@{/userSaveRendezVous}" method="post"
 						class="bg-white p-4">
 						<h3 class="text-center p-3"
-							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" th:if="${calandrier.id==null}">
+							style="background: #e2e2e2; min-height: 60px; border-radius: 5px;" th:if="${rendezVous.id==null}">
 							Nouveau Rendez-Vous
 						</h3>
 
@@ -40,7 +40,7 @@
 									th:value="${#authentication.getPrincipal().getUsername()}" hidden="hidden">							
 						</div>	
 												
-						<div th:object="${calandrier}">	
+						<div th:object="${rendezVous}">	
 								
 								<div id="specialiste">					<!-- Spécialité -->
 									<div class="form-group blu-margin" >
@@ -87,7 +87,7 @@
 										<div class="form-group">
 											<label class="control-label" for="dateDebut">Date et heure</label>
 											 <input name="dateDebut" type="datetime-local"  required 
-													class="form-control" th:value="${calandrier.dateDebut}"
+													class="form-control" th:value="${rendezVous.dateDebut}"
 													th:classappend="${#fields.hasErrors('dateDebut')?'is-invalid':''}"
 													id="dateDebut" aria-describedby="dateDebutHelp"
 													th:attr="min=${#execInfo.now.time}">
@@ -100,13 +100,13 @@
 										<div class="form-group mt">
 											<label class="control-label" for="quantite">Nombre d'heure: </label> 
 											<input type="number" name="quantite" class="form-control" required
-												   th:value="${calandrier.quantite}">
+												   th:value="${rendezVous.quantite}">
 											
 										</div>					
 																														
 										<div class="form-group">
 											<label class="control-label" for="de">Description</label> 
-											<textarea   name="description" th:value="${calandrier.description}" 
+											<textarea   name="description" th:value="${rendezVous.description}" 
 														th:classappend="${#fields.hasErrors('description')?'is-invalid':''}"
 														class="form-control" id="description" style="height:100px;">
 											</textarea>

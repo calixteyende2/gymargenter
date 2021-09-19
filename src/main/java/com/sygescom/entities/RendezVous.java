@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Validated
 @Data @NoArgsConstructor @AllArgsConstructor
-public class Calandrier implements Serializable {
+public class RendezVous implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id 
@@ -28,18 +28,18 @@ public class Calandrier implements Serializable {
 	private Long id;
 	
 
-    private String specialiste;
+    private String specialiste; //Email du spécialiste
     
     @NotEmpty
     @NotNull
-	private String domaine;
+	private String domaine;		//Domaine de compétence
     
   
     @NotEmpty
     @NotNull
-    private String client;
+    private String client;		//Email du client
     
-    private String description;
+    private String description;	//Description de la rencontre 
     	
     
 	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
@@ -49,6 +49,6 @@ public class Calandrier implements Serializable {
 	
     
     @NotNull
-	private int quantite;
+	private int quantite;		//Nombre d'heure de la rencontre
 
 }

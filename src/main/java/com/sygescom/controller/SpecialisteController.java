@@ -147,6 +147,7 @@ public class SpecialisteController {
 			  adresse.getUtilisateurList().add(specialiste);
 			  specialiste.setPassword(passwordEncoder.encode(specialiste.getPassword()));			
 			  specialisteRepository .save(specialiste);
+			  			//Ajout au registre authentification et Autorisation
 			  userRepository.save(new User(specialiste.getEmail(), specialiste.getPassword(), true));
 			  userRoleRepository.save(new User_Role(specialiste.getEmail(), "USER"));
 			  System.out.println("Specialiste enregistré avec success");

@@ -29,35 +29,35 @@
 							Détails du rendez-vous
 						</h5>
 						
-						<div th:object="${calandrier}">	
+						<div th:object="${rendezVous}">	
  						
 						<div class="form-group form-inline  mt-5">
 							<label class="control-label border-0" for="specialiste">Spécialiste: </label> 
-							<input  class="form-control border-0 bg-white" style="margin-left: 20px;" readonly="readonly" id="specialiste" th:value="${calandrier.specialiste}">						
+							<input  class="form-control border-0 bg-white" style="margin-left: 20px;" readonly="readonly" id="specialiste" th:value="${rendezVous.specialiste}">						
 						</div>
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="domaine">Spécialité:</label>
-							<input class="form-control border-0 bg-white" style="margin-left: 30px;" readonly="readonly" id="domaine" th:value="${calandrier.domaine}">						
+							<input class="form-control border-0 bg-white" style="margin-left: 30px;" readonly="readonly" id="domaine" th:value="${rendezVous.domaine}">						
 						</div>						
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="client">Client:</label>
-							<input class="form-control border-0 bg-white" style="margin-left: 50px;" readonly="readonly" id="client"  th:value="${calandrier.client}">						
+							<input class="form-control border-0 bg-white" style="margin-left: 50px;" readonly="readonly" id="client"  th:value="${rendezVous.client}">						
 						</div>
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="dateDebut">Date:</label>
-							<input class="form-control border-0 bg-white" readonly="readonly" id="dateDebut" style="margin-left: 56px;"  th:value="${calandrier.dateDebut}">						
+							<input class="form-control border-0 bg-white" readonly="readonly" id="dateDebut" style="margin-left: 56px;"  th:value="${rendezVous.dateDebut}">						
 						</div>	
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="description">Description:</label>
-							<input class="form-control border-0 bg-white" style="margin-left: 10px;" readonly="readonly" id="description" th:value="${calandrier.description}">						
+							<input class="form-control border-0 bg-white" style="margin-left: 10px;" readonly="readonly" id="description" th:value="${rendezVous.description}">						
 						</div>	
 						<div class="form-group form-inline">
 							<label class="control-label border-0" for="quantite">Durée:</label>
-							<input class="form-control border-0 bg-white" style="margin-left: 48px;" readonly="readonly" id="quantite" th:value="${calandrier.quantite+' heure(s)'}">						
+							<input class="form-control border-0 bg-white" style="margin-left: 48px;" readonly="readonly" id="quantite" th:value="${rendezVous.quantite+' heure(s)'}">						
 						</div>								
 	                    <div class="form-group">
 	    					<span>
-								<a class="btn btn-primary btn-block mt-3" th:href="@{/calandriers}">Fermer</a>
+								<a class="btn btn-primary btn-block mt-3" th:href="@{/rendezVous}">Fermer</a>
 							</span>                  
 	                    </div>	                    								
 					</div>				

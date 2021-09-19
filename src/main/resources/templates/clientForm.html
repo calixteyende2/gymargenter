@@ -275,15 +275,15 @@
 										</div>
 										<div class="d-inline-block col-md-6">
 										    <label class="label" for="ENTP">Entraineur Privé: <span th:each="service, index: ${services}" th:if="${service.getCode()=='ENTP'}" th:text="${service.prix}"> </span>$/heure</label><span style="margin-left: 12px;">QTÉ</span> 
-										    <input style="width: 70px; height: 20px; margin-left: 8px;" placeholder="quantité" type="number" name="qENTP" th:value="${client.qENTP}"><br>  
+										    <input style="width: 70px; height: 20px; margin-left: 8px;" placeholder="quantité" type="number" name="qENTP" th:value="${client.qENTP}" required="required"><br>  
 										    								    
 										   
 										    <label class="label" for="NUTRI">Nutritionniste: <span th:each="service, index: ${services}" th:if="${service.getCode()=='NUTRI'}" th:text="${service.prix}"> </span>$/heure</label> <span style="margin-left: 20px; padding-left: 2px;">QTÉ</span>
-										    <input style="width: 70px; height: 20px; margin-left: 10px;" placeholder="quantité" type="number" name="qNUTRI" th:value="${client.qNUTRI}"><br> 
+										    <input style="width: 70px; height: 20px; margin-left: 10px;" placeholder="quantité" type="number" name="qNUTRI" th:value="${client.qNUTRI}" required="required"><br> 
 										
 										    
 										    <label class="label" for="PHYSIO">Physiothérapeute: <span th:each="service, index: ${services}" th:if="${service.getCode()=='PHYSIO'}" th:text="${service.prix}"> </span>$/heure</label><span style="margin-left: 4px;">QTÉ</span>
-										    <input style="width: 70px; height: 20px; margin-left: 6px;" placeholder="quantité" type="number" name="qPHYSIO" th:value="${client.qPHYSIO}"><br>       
+										    <input style="width: 70px; height: 20px; margin-left: 6px;" placeholder="quantité" type="number" name="qPHYSIO" th:value="${client.qPHYSIO}" required="required"><br>       
 									 	</div>
 								 	  </div>
 								   </div>						

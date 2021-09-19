@@ -53,8 +53,8 @@
                     <a sec:authorize="hasRole('ROLE_ADMIN')" class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/clients}">Gestion des clients</a> 
                     <a sec:authorize="hasRole('ROLE_ADMIN')" class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/specialistes}">Gestion des spécialistes</a>  
                     <a sec:authorize="hasRole('ROLE_ADMIN')" class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/gestionnaires}">Gestion des gestionnaires</a>                    
-			        <a sec:authorize="hasRole('ROLE_USER')" class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/calandrierForm(email=${#authentication.getPrincipal().getUsername()})}">Prendre Rendez-Vous</a>
-			        <a sec:authorize="hasRole('ROLE_USER')" class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/calandriers}">Gestion des rendez-vous</a>                   
+			        <a sec:authorize="hasRole('ROLE_USER')" class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/rendezVousForm(email=${#authentication.getPrincipal().getUsername()})}">Prendre Rendez-Vous</a>
+			        <a sec:authorize="hasRole('ROLE_USER')" class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/rendezVous}">Gestion des rendez-vous</a>                   
                    	<a sec:authorize="hasRole('ROLE_CLIENT')" class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/clientDetails(email=${#authentication.getPrincipal().getUsername()})}"> Details Abonnement</a>                
                 </div>
             </div>

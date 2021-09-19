@@ -134,6 +134,7 @@ public class GestionnaireController {
 		  adresseGestionnaire.getAdresse().getUtilisateurList().add(adresseGestionnaire.getGestionnaire());
 		  adresseGestionnaire.getGestionnaire().setPassword(passwordEncoder.encode(adresseGestionnaire.getGestionnaire().getPassword()));			
 		  gestionnaireRepository.save(adresseGestionnaire.getGestionnaire());
+		  							//Ajout au registre authentification et Autorisation
 		  userRepository.save(new User(adresseGestionnaire.getGestionnaire().getEmail(), adresseGestionnaire.getGestionnaire().getPassword(), true));
 		  userRoleRepository.save(new User_Role(adresseGestionnaire.getGestionnaire().getEmail(), "ADMIN"));
 		  System.out.println("utilisateur enregistré avec success");

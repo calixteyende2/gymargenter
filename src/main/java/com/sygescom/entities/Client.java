@@ -46,33 +46,36 @@ public class Client extends Utilisateur implements Serializable {
     /*
      * Plans d'abonnements 
      */
-    private String CM;
+    private String CM;  	//Conditionnement mensuel
     
-    private String CT;
+    private String CT;		//Conditionnement trimestriel
     
-    private String CA;
+    private String CA;		//Conditionnement annuel
     
-    private String OPTCGM;
+    private String OPTCGM;	//Option de conditionnement mensuel
     
-    private String OPTCGT;
+    private String OPTCGT;	//Option de conditionnement trimestriel
     
-    private String OPTCGA;
+    private String OPTCGA;	//Option de conditionnement annuel
     
-    private String CGM;
+    private String CGM;		//Cours de groupe mensuel
     
-    private String CGT;
+    private String CGT;		//Cours de groupe trimestriel
     
-    private String CGA;
+    private String CGA;		//Cours de groupe annuel
     
 
     /*
      * Services spécialisés 
      */
-    private int qENTP;
     
-    private int qNUTRI;
+    private int qENTP; 	 //Entraineur particulier
     
-    private int qPHYSIO;
+   
+    private int qNUTRI;  //Nutritionniste
+    
+   
+    private int qPHYSIO; //Physiothérapuete
     
 	
 }
